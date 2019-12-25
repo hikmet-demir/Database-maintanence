@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css'
+              href='http://fonts.googleapis.com/css?family=Spectral'>
+        <title>Maintenance Application System</title>
+    </head>
+    <style>
+        * {
+           font-family: Spectral;
+           font-size: 20px;
+           text-align: center;
+        }
+        h1 {
+            font-size: 40px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+        caption {
+            text-align: left;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #a5a5a5;
+            color: white;
+        }
+        tr:nth-child(odd) {
+            background-color: #dddddd;
+        }
+        tr:hover {
+            background-color: #fdfd96;
+        }
+    </style>
+    <h1>Maintenance Application System</h1>
+    <form action="/login" METHOD="POST">
+        <div class = "form-row">
+            <input type="text"  class="form-control col-md-4" name="username" placeholder="Username">
+            <input type="password"  class="form-control col-md-4" name="password" placeholder="Password">
+            <button type="login" class="btn btn-success btn-sm">Log In</button>
+        </div>
+    </form>
+    <form action="/sign_up" METHOD="POST">
+        <div class = "form-row">
+            <button type="sign_up" class="btn btn-success btn-sm">Sign Up</button>
+        </div>
+    </form>
+</html>
