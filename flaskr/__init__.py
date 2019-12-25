@@ -27,13 +27,20 @@ def create_app(test_config=None):
 
     # a simple page that says hello
     @app.route('/')
-    def hello():
+    def index():
         return render_template('index.html', index=1)
 
     @app.route('/sign_up_customer',methods = ['GET','POST'])
-    def simki():
+    def sign_up_customer():
         return render_template('sign_up_customer.html') 
 
+    @app.route('/sign_up_customer_service_assistant',methods = ['GET','POST'])
+    def sign_up_customer_service_assistant():
+        return render_template('sign_up_customer_service_assistant.html') 
+
+    @app.route('/sign_up_technician',methods = ['GET','POST'])
+    def sign_up_technician():
+        return render_template('sign_up_technician.html') 
     from . import db
     db.init_app(app)
 
