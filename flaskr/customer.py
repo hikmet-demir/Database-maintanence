@@ -2,24 +2,62 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
+from flaskr.auth import login_required
+from flaskr.db import get_db
+import sys
+
+
 bp = Blueprint('customer', __name__, url_prefix='/customer')
 
-@bp.route('/aa',methods =('GET','POST'))
-def ddd():
-    return "hikmet"
+@bp.route('/welcome',methods =('GET','POST'))
+def welcome():
+    db = get_db()
+
+    products =  db.execute(
+            'SELECT * FROM product WHERE customer_id = ?', (g.user['id'],)
+        ).fetchall()
+    
+    
+    data = [[i[0] for i in products]]
+    # print(data, file=sys.stderr)
+    # print(products, file=sys.stderr)
+
+    return render_template('customer/customer_welcome.html', data = data, size = len(data))
+
 
 @bp.route('/get_details',methods =('GET','POST'))
 def get_details():
-    products = request.args["products"]
+    db = get_db()
+    product_id = request.args["products"]
+
+    product =  db.execute(
+            'SELECT * FROM product WHERE id = ?', (product_id,)
+        ).fetchone()
     
-    render_template('customer/customer_get_details.html'
-        ,data = ["aaa","bbb","ccc"],size = 3)
-    return "asdasd"
+    id = product["id"]
+    price = product["price"]
+    model = product['model']
+    color = product['color']
+    warranty = product['years_of_warranty']
+    cat_id = product['cat_id']
+    cat_name = db.execute(
+            'SELECT * FROM category WHERE id = ?', (cat_id,)
+        ).fetchone()['cat_name']
+    
+    
+    return render_template('customer/customer_get_details.html'
+        ,id=product_id, price=price, model=model, Color=color,
+        years_of_warranty=warranty, category_name=cat_name)
 
 
 @bp.route('/create_request',methods =('GET','POST'))
 def create_request():
-    products = request.args["products"]
+    db = get_db()
+    product_id = request.args["products"]
+
+    product =  db.execute(
+            'SELECT * FROM product WHERE id = ?', (product_id,)
+        ).fetchone()
     
     render_template('customer/customer_get_details.html'
         ,data = ["aaa","bbb","ccc"],size = 3)

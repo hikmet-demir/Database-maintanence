@@ -264,7 +264,7 @@ def login():
                 ).fetchone()['user_type']
 
             if user_type == "customer":
-                return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('customer.welcome'))
 
             elif user_type == "technician":
                 return render_template('technician/technician_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
