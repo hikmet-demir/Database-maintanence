@@ -129,28 +129,24 @@ html, body {
 
 <h2>Visible Option Values</h2>
 <p>Use the size attribute to specify the number of visible values.</p>
-<!--{% for row in data %}
+{% for row in data %}
         <tr>
         {% for d in row %}
             <td>{{ d }}</td>
         {% endfor %}
         </tr>
-{% endfor %} -->
+{% endfor %}
 
 <form action="/create_request">
-  <select name="cars" size="4">
-  <!-- <select name="products" size= {{ size }}>
+  <select name="products" size= {{ size }}>
      {% for row in data %}
-        <tr>
-        {% for d in row %}
-            <option value="$d">d</option>
-        {% endfor %}
-        </tr>
-    {% endfor %} -->
+            <option value={{row}}>{{row}}</option>
+    {% endfor %}
+    <!--
     <option value="volvo">Volvo</option>
     <option value="saab">Saab</option>
     <option value="fiat">Fiat</option>
-    <option value="audi">Audi</option>
+    <option value="audi">Audi</option>-->
   </select>
   <br><br>
   <button type="submit" href="/">Create Request</button>
