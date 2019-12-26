@@ -11,56 +11,39 @@
 
 <body>
 
-<h2>Visible Option Values</h2>
-
-
-<p>Use the size attribute to specify the number of visible values.</p>
+<!-- <p>Use the size attribute to specify the number of visible values.</p>
 {% for row in data %}
         <tr>
         {% for d in row %}
             <td>{{ d }}</td>
         {% endfor %}
         </tr>
-{% endfor %}
+{% endfor %} -->
 
-<nav class="nav nav-masthead justify-content-center">
+<!-- <nav class="nav nav-masthead justify-content-center">
   <a class="nav-link active" href="#">Home</a>
   <a class="nav-link" href="#">My Complaints</a>
   <a class="nav-link" href="#">My Requests</a>
-</nav>
+</nav> -->
 
-<form class="top" >
+<form class="top" action="/">
   <p class="bottom-up-three">
     Product ID: {{ id  }}<br>
-    Price: {{ price  }}<br>
     Model: {{ model  }}<br>
-    Color: {{ Color  }}<br>
     Years of Warranty: {{  years_of_warranty }}<br>
-    Category ID: {{  category_id}}<br>
   </p>
+  <form class="textboxsimge">
+    <textarea name="myTextBox" cols="30" rows="5">
+    </textarea>
+  </form>
   <p class="radiobuttonsimge">
     <input type="radio" name="request" value="renew" checked> Renew<br>
     <input type="radio" name="request" value="repair"> Repair<br>
     <input type="radio" name="request" value="return"> Return
 </form>
 
-<form class="textboxsimge" >
-  <textarea name="myTextBox" cols="30" rows="5">
-    empty textbox.
-  </textarea>
-</form>
+<br><br>
+<button type="submit" href="/">Create Request</button>
 
-
-<form action="/create_request">
-  <select name="products" size= {{ size }}>
-     {% for row in data %}
-            <option value={{row}}>{{row}}</option>
-    {% endfor %}
-
-  </select>
-  <br><br>
-  <button type="submit" href="/">Create Request</button>
-
-</form>
 </body>
 </html>

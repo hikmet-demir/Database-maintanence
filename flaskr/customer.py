@@ -17,10 +17,9 @@ def welcome():
             'SELECT * FROM product WHERE customer_id = ?', (g.user['id'],)
         ).fetchall()
     
-    
+    # outer brackets are required, it doesnt work without them somehow
+    # thats why id's are shown in the bracets on the website
     data = [[i[0] for i in products]]
-    # print(data, file=sys.stderr)
-    # print(products, file=sys.stderr)
 
     return render_template('customer/customer_welcome.html', data = data, size = len(data))
 
@@ -28,11 +27,13 @@ def welcome():
 @bp.route('/get_details',methods =('GET','POST'))
 def get_details():
     db = get_db()
-    product_id = request.args["products"]
+    product_id = int(request.args["products"][1])
+    print(product_id, file=sys.stderr)
 
     product =  db.execute(
             'SELECT * FROM product WHERE id = ?', (product_id,)
         ).fetchone()
+    print(product, file=sys.stderr)
     
     id = product["id"]
     price = product["price"]
