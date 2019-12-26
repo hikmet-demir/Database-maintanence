@@ -144,8 +144,10 @@ def register_customer_service_assistant():
             )
 
             db.commit()
+        if error:
+            return error
 
-            return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
 
         flash(error)
     if request.method == 'GET':
@@ -217,8 +219,10 @@ def register_technician():
             )
 
             db.commit()
+        if error:
+            return error
 
-            return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
 
         flash(error)
     if request.method == 'GET':
