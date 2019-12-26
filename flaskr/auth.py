@@ -3,11 +3,14 @@ import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+@bp.route('/aa',methods =('GET','POST'))
+def ddd():
+    return "hikmet"
 
 @bp.route('/register_customer', methods=('GET', 'POST'))
 def register_customer():
@@ -148,7 +151,7 @@ def register_customer_service_assistant():
             # insert into customer_service_asisstant table
             db.execute(
                 'INSERT INTO customer_service_asisstant (id) VALUES (?)',
-                (id)
+                (id,)
             )
 
             db.commit()
@@ -227,8 +230,8 @@ def register_technician():
             db.commit()
             # insert into customer_service_asisstant table
             db.execute(
-                'INSERT INTO customer_service_asisstant (id, profession) VALUES (?)',
-                (id, profession)
+                'INSERT INTO customer_service_asisstant (id) VALUES (?)',
+                (id,)
             )
 
             db.commit()
