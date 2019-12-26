@@ -73,11 +73,11 @@ def register_customer():
             return redirect(url_for('auth.login'))
 
         flash(error)
+    if request.method == 'GET':
+        return render_template('auth/register_customer.html')
 
-    return render_template('auth/register_customer.html')
-
-@bp.route('/register_asisstant', methods=('GET', 'POST'))
-def register_asisstant():
+@bp.route('/register_customer_service_assistant', methods=('GET', 'POST'))
+def register_customer_service_assistant():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -145,8 +145,8 @@ def register_asisstant():
             return redirect(url_for('auth.login'))
 
         flash(error)
-
-    return render_template('auth/register_asisstant.html')
+    if request.method == 'GET':
+        return render_template('auth/register_customer_service_assistant.html')
 
 @bp.route('/register_technician', methods=('GET', 'POST'))
 def register_technician():
@@ -218,8 +218,8 @@ def register_technician():
             return redirect(url_for('auth.login'))
 
         flash(error)
-
-    return render_template('auth/register_technician.html')
+    if request.method == 'GET':
+        return render_template('auth/register_technician.html')
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
