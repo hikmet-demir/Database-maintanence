@@ -15,3 +15,12 @@ def get_details():
     render_template('customer/customer_get_details.html'
         ,data = ["aaa","bbb","ccc"],size = 3)
     return "asdasd"
+
+
+@bp.route('/create_request',methods =('GET','POST'))
+def create_request():
+    products = request.args["products"]
+    
+    render_template('customer/customer_get_details.html'
+        ,data = ["aaa","bbb","ccc"],size = 3)
+    return "asdasd"
