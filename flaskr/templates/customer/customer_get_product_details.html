@@ -1,3 +1,11 @@
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css'
+              href='http://fonts.googleapis.com/css?family=Spectral'>
+        <title>Maintenance Application System</title>
+    </head>
+    <style>
 html, body {
       min-height: 100%;
       }
@@ -7,7 +15,7 @@ html, body {
       outline: none;
       font-family: Roboto, Arial, sans-serif;
       font-size: 16px;
-      color: #eee;
+      color: black;
       }
       body {
       background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
@@ -17,22 +25,9 @@ html, body {
       text-transform: uppercase;
       font-weight: 400;
       color: black;
-      text-align: center;
       }
-      h1{
-        padding: 50px;
-      }
-
       h2 {
       margin: 0 0 0 8px;
-      }
-
-      .radiobuttonsimge{
-        padding-left: 70%;
-      }
-
-      .textboxsimge{
-        padding-top: 0%;
       }
       .main-block {
       display: flex;
@@ -78,10 +73,6 @@ html, body {
       input::placeholder {
       color: #eee;
       }
-<<<<<<< HEAD
-=======
-
->>>>>>> c9d063905edb191b56cf944fb386af11d83d1b52
       option:focus {
       border: none;
       }
@@ -96,13 +87,6 @@ html, body {
       .checkbox a {
       color: #26a9e0;
       }
-<<<<<<< HEAD
-=======
-      .bottom-up-three {
-      margin-top: 3cm;
-      margin-bottom: 3cm;
-      }
->>>>>>> c9d063905edb191b56cf944fb386af11d83d1b52
       .checkbox a:hover {
       color: #85d6de;
       }
@@ -139,6 +123,10 @@ html, body {
       flex: 1;
       height: auto;
       }
+      .bottom-up-three {
+      margin-top: 3cm;
+      margin-bottom: 3cm;
+      }
       }
       .nav-masthead .nav-link {
         padding: .25rem 0;
@@ -161,3 +149,27 @@ html, body {
       .nav-link + .nav-masthead {
         margin-right: 5rem;
       }
+    </style>
+    <h1>Customer Page</h1>
+    <body>
+    <hr>
+    <h2>Product Details</h2>
+
+<nav class="nav nav-masthead justify-content-center">
+  <a class="nav-link active" href="/customer_welcome">Home</a>
+  <a class="nav-link" href="/see_my_complaints">My Complaints</a>
+  <a class="nav-link" href="/see_my_requests">My Requests</a>
+</nav>
+
+<p class="bottom-up-three">
+Product ID: {{ id  }}<br>
+Price: {{ price  }}<br>
+Model: {{ model  }}<br>
+Color: {{ Color  }}<br>
+Years of Warranty: {{  years_of_warranty }}<br>
+Category ID: {{  category_id}}<br>
+</p>
+
+
+</body>
+</html>

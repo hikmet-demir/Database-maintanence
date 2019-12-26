@@ -26,15 +26,14 @@
   <a class="nav-link" href="/see_my_complaints">My Complaints</a>
   <a class="nav-link" href="/see_my_requests">My Requests</a>
 </nav>
-
 <form action="/create_request">
   <select name="products" size= {{ size }}>
     {% for row in data %}
             <option value={{row}}>{{  row  }}</option>
     {% endfor %}
   </select>
-  <button type="submit" href="/">Create Request</button>
-  <button type="submit" href="/" formaction="/customer/get_details">Get Details</button>
+  <button type="submit" formaction="/customer/create_request">Create Request</button>
+  <button type="submit" formaction="/customer/get_details">Get Details</button>
 </form>
 
 </form>

@@ -4,6 +4,13 @@ DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS customer_service_asisstant;
 DROP TABLE IF EXISTS technician;
 DROP TABLE IF EXISTS repairment;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS parts;
+DROP TABLE IF EXISTS parts_repairment;
+DROP TABLE IF EXISTS shipping;
+DROP TABLE IF EXISTS complaint;
 
 
 CREATE TABLE user(
@@ -18,7 +25,7 @@ phone INTEGER NOT NULL,
 gender VARCHAR(6),
 user_type VARCHAR(50) NOT NULL,
 CHECK( gender IN ( "male", "female")),
-CHECK( user_type IN ( "customer", "asisstant", "technician"))
+CHECK( user_type IN ( "customer", "asisstant", "technician", "admin"))
 );
 
 CREATE TABLE customer(
@@ -88,7 +95,7 @@ cat_name VARCHAR(50) NOT NULL
 
 CREATE TABLE messages ( 
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-date DATE NOT NULL,
+created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 text VARCHAR(1000) NOT NULL,
 complaint_id INTEGER NOT NULL,
 receiver_id INTEGER NOT NULL,
