@@ -1,5 +1,10 @@
 venv/
 .vscode/
+<<<<<<< HEAD
 instance/flaskr.sqlite
 .DS_Store
 instance/sqlite3.exe
+=======
+instance/sqlite3.exe
+instance/flaskr.sqlite
+>>>>>>> 45bde8d9b7b2094cb7369cece9cc44a4f9ba7051
