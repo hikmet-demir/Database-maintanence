@@ -148,31 +148,27 @@ html, body {
     <h1>Maintenance Application System Customer Page</h1>
     <body>
 
-<h2>Visible Option Values</h2>
-<!--<p>Use the size attribute to specify the number of visible values.</p>
-{% for row in data %}
-        <tr>
-        {% for d in row %}
-            <td>{{ d }}</td>
-        {% endfor %}
-        </tr>
-{% endfor %}-->
 
-<nav class="nav nav-masthead justify-content-center">
+<!--<nav class="nav nav-masthead justify-content-center">
   <a class="nav-link active" href="#">Home</a>
-  <a class="nav-link" href="/see_my_complaints">My Complaints</a>
-  <a class="nav-link" href="/see_my_requests">My Requests</a>
-</nav>
+  <a class="nav-link" href="#">My Complaints</a>
+  <a class="nav-link" href="#">My Requests</a>
+</nav> -->
 
-<form action="/create_request">
+<form action="/get_details">
   <select name="products" size= {{ size }}>
+    
     {% for row in data %}
-            <option value={{row}}>{{  row  }}</option>
+            <option value={{row}}>{{row}}</option>
     {% endfor %}
   </select>
   <br><br>
-  <button type="submit" href="/">Create Request</button>
-  <button type="submit" href="/" formaction="/get_details">Get Details</button>
+  <button type="submit" href="/">Get Details</button>
+  <button type="submit" href="/" formaction="/write_preliminary_report">Write Preliminary Report</button>
+  <button type="submit" href="/" formaction="/write_final_report">Write Final Report</button>
+  <button type="submit" href="/" formaction="/ship_item_back">Ship Item Back</button>
+  <!--<input type="submit">
+  <input type="login"> -->
 </form>
 
 </body>
