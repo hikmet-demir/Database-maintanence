@@ -121,7 +121,7 @@ html, body {
       }
     </style>
     <h1>Maintenance Application System SignUp Page</h1>
-    <form action="/">
+    <form action="/auth/register_customer" METHOD="POST">
         <div class="title">
           <i class="fas fa-pencil-alt"></i> 
           <h2>Register here</h2>
@@ -132,6 +132,7 @@ html, body {
           <input type="text" name="last_name" placeholder="Last name">
           <input type="text" name="username" placeholder="Username">
           <input type="password" name="password" placeholder="Password">
+          <input type="tel" name="phone_no" placeholder="Phone no">
           <input type="text" name="email" placeholder="Email">
           <input type="text" name="gender" placeholder="Gender">
           <input type="text" name="national_id" placeholder="National ID">
