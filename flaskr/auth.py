@@ -226,8 +226,8 @@ def register_technician():
             db.commit()
             # insert into customer_service_asisstant table
             db.execute(
-                'INSERT INTO customer_service_asisstant (id) VALUES (?)',
-                (id,)
+                'INSERT INTO technician (id, profession) VALUES (?,?)',
+                (id,profession)
             )
 
             db.commit()

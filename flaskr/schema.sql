@@ -79,13 +79,15 @@ FOREIGN KEY (customer_id)  REFERENCES  customer(id) on delete cascade on update 
 
 CREATE TABLE product (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
+customer_id INTEGER NOT NULL,
 model VARCHAR(50) NOT NULL,
 color VARCHAR(14),
 years_of_warranty INTEGER NOT NULL, 
 time_of_buying DATE NOT NULL,
 price FLOAT NOT NULL,
 cat_id INTEGER NOT NULL,
-FOREIGN KEY (cat_id) REFERENCES category(id) on delete cascade on update cascade
+FOREIGN KEY (cat_id) REFERENCES category(id) on delete cascade on update cascade,
+FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade
 );
 
 CREATE TABLE category (
