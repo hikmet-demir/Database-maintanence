@@ -28,12 +28,10 @@ def welcome():
 def get_details():
     db = get_db()
     product_id = int(request.args["products"][1])
-    print(product_id, file=sys.stderr)
 
     product =  db.execute(
             'SELECT * FROM product WHERE id = ?', (product_id,)
         ).fetchone()
-    print(product, file=sys.stderr)
     
     id = product["id"]
     price = product["price"]
@@ -54,12 +52,20 @@ def get_details():
 @bp.route('/create_request',methods =('GET','POST'))
 def create_request():
     db = get_db()
-    product_id = request.args["products"]
+    product_id = request.args["products"][1]
 
     product =  db.execute(
             'SELECT * FROM product WHERE id = ?', (product_id,)
         ).fetchone()
+
+    id = product["id"]
+    model = product['model']
+    warranty = product['years_of_warranty']
     
-    render_template('customer/customer_get_details.html'
-        ,data = ["aaa","bbb","ccc"],size = 3)
-    return "asdasd"
+    return render_template('customer/create_request.html',
+        id=product_id, model=model, years_of_warranty=warranty,
+        data=["asd","asdd"])
+    
+@bp.route('/complete_request',methods =('GET','POST'))
+def complete_request():
+    return "asd"

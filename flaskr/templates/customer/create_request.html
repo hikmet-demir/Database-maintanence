@@ -11,6 +11,9 @@
 
 <body>
 
+<h2>Visible Option Values</h2>
+  
+
 <!-- <p>Use the size attribute to specify the number of visible values.</p>
 {% for row in data %}
         <tr>
@@ -26,24 +29,26 @@
   <a class="nav-link" href="#">My Requests</a>
 </nav> -->
 
-<form class="top" action="/">
+<form class="top" action="/customer/complete_request" id="nameform">
   <p class="bottom-up-three">
     Product ID: {{ id  }}<br>
     Model: {{ model  }}<br>
     Years of Warranty: {{  years_of_warranty }}<br>
   </p>
-  <form class="textboxsimge">
-    <textarea name="myTextBox" cols="30" rows="5">
-    </textarea>
-  </form>
   <p class="radiobuttonsimge">
     <input type="radio" name="request" value="renew" checked> Renew<br>
     <input type="radio" name="request" value="repair"> Repair<br>
     <input type="radio" name="request" value="return"> Return
+  </p>
+  <p class="textboxsimge" >
+      <textarea name="myTextBox" cols="30" rows="5">
+        empty textbox.
+      </textarea>
+    </p>
 </form>
 
-<br><br>
-<button type="submit" href="/">Create Request</button>
+<button type="submit" form="nameform" value="Submit">Complete Request</button>
 
+</form>
 </body>
 </html>
