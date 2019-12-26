@@ -10,6 +10,7 @@ def ddd():
 
 @bp.route('/get_details',methods =('GET','POST'))
 def get_details():
+    request.form["product"]
     render_template('customer/customer_get_details.html'
         ,data = ["aaa","bbb","ccc"],size = 3)
     return "asdasd"
