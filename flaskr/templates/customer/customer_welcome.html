@@ -169,17 +169,9 @@ html, body {
      {% for row in data %}
             <option value={{row}}>{{row}}</option>
     {% endfor %}
-    <!--
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="fiat">Fiat</option>
-    <option value="audi">Audi</option>-->
   </select>
-  <br><br>
   <button type="submit" href="/">Create Request</button>
-  <button type="submit" href="/" formaction="/get_details">Get Details</button>
-  <!--<input type="submit">
-  <input type="login"> -->
+  <button type="submit" href="/" formaction="/customer/get_details">Get Details</button>
 </form>
 
 </body>
