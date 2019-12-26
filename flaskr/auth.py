@@ -174,7 +174,7 @@ def register_technician():
         gender = request.form['gender']
         requirement_year = request.form['requirement_year']
         department = request.form['department']
-        experience = request.form['years_of_experience']
+        experience = request.form['years_of_experince']
         profession = request.form['profession']
         user_type = 'technician'
         
