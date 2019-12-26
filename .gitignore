@@ -1,2 +1,3 @@
 venv/
 .vscode/
+instance/sqlite3.exe
