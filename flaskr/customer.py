@@ -68,4 +68,32 @@ def create_request():
     
 @bp.route('/complete_request',methods =('GET','POST'))
 def complete_request():
-    return "asd"
+    product_id = request.args['product_id']
+    request_type = request.args['request']
+    problem = request.args['myTextBox']
+    customer_id = g.user['id']
+
+    print(product_id, file=sys.stderr)
+    print(request_type, file=sys.stderr)
+    print(problem, file=sys.stderr)
+
+    if request_type == 'repair':
+        db = get_db()
+
+        # SIMDILIK TEKNISYENI ELIMLE YERLESTIRDIM
+        # DEMAND SILINMELI
+        
+        db.execute(
+                'INSERT INTO repairment (technician_id, product_id, customer_id, \
+                    problem, demand) VALUES (?, ?, ?, ?, ?)',
+                (1, product_id, customer_id, problem, "repair")
+            )
+
+        db.commit()
+    else:
+        print("ses")
+        # we need to handle this case later!!!
+    
+    return redirect(url_for('customer.welcome'))
+    
+
