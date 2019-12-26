@@ -1,3 +1,4 @@
+
 html, body {
       min-height: 100%;
       }
@@ -25,14 +26,6 @@ html, body {
 
       h2 {
       margin: 0 0 0 8px;
-      }
-
-      .radiobuttonsimge{
-        padding-left: 70%;
-      }
-
-      .textboxsimge{
-        padding-top: 0%;
       }
       .main-block {
       display: flex;
@@ -78,10 +71,6 @@ html, body {
       input::placeholder {
       color: #eee;
       }
-<<<<<<< HEAD
-=======
-
->>>>>>> c9d063905edb191b56cf944fb386af11d83d1b52
       option:focus {
       border: none;
       }
@@ -96,13 +85,6 @@ html, body {
       .checkbox a {
       color: #26a9e0;
       }
-<<<<<<< HEAD
-=======
-      .bottom-up-three {
-      margin-top: 3cm;
-      margin-bottom: 3cm;
-      }
->>>>>>> c9d063905edb191b56cf944fb386af11d83d1b52
       .checkbox a:hover {
       color: #85d6de;
       }

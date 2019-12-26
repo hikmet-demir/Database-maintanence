@@ -28,11 +28,28 @@
   <a class="nav-link" href="#">My Complaints</a>
   <a class="nav-link" href="#">My Requests</a>
 </nav>
-<form class="radiobuttonsimge" >
-  <input type="radio" name="request" value="renew" checked> Renew<br>
-  <input type="radio" name="request" value="repair"> Repair<br>
-  <input type="radio" name="request" value="return"> Return
+
+<form class="top" >
+  <p class="bottom-up-three">
+    Product ID: {{ id  }}<br>
+    Price: {{ price  }}<br>
+    Model: {{ model  }}<br>
+    Color: {{ Color  }}<br>
+    Years of Warranty: {{  years_of_warranty }}<br>
+    Category ID: {{  category_id}}<br>
+  </p>
+  <p class="radiobuttonsimge">
+    <input type="radio" name="request" value="renew" checked> Renew<br>
+    <input type="radio" name="request" value="repair"> Repair<br>
+    <input type="radio" name="request" value="return"> Return
 </form>
+
+<form class="textboxsimge" >
+  <textarea name="myTextBox" cols="30" rows="5">
+    empty textbox.
+  </textarea>
+</form>
+
 
 <form action="/create_request">
   <select name="products" size= {{ size }}>
