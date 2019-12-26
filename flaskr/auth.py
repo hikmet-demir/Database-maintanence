@@ -3,7 +3,7 @@ import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
+from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -263,7 +263,19 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+            user_type = db.execute(
+                'SELECT user_type FROM user WHERE username = ?', (username,)
+                ).fetchone()['user_type']
+
+            if user_type == "customer":
+                return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+
+            elif user_type == "technician":
+                return render_template('technician/technician_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+            elif user_type == "asisstant":
+                return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+            elif user_type == "admin":
+                return render_template('customer/admin_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
 
         flash(error)
 
