@@ -7,5 +7,4 @@ from flask import (
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-bp = Blueprint('customer_service_asisstant', __name__, url_prefix='/customer_service_asisstant')
-
+bp = Blueprint('admin', __name__, url_prefix='/admin')

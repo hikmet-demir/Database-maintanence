@@ -35,6 +35,7 @@ def create_app(test_config=None):
     
     from . import customer
     app.register_blueprint(customer.bp)
+    
 
     return app
 
