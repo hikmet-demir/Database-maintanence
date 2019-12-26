@@ -9,25 +9,29 @@ from flaskr.db import get_db
 
 bp = Blueprint('technician', __name__, url_prefix='/technician')
 
-@bp.route('/technician_index', methods =('GET'))
+@bp.route('/technician_index')
 @login_required
 def technician_index():
-    None
+    return "sad"
 
-@bp.route('/get_details', methods =('GET'))
+
+@bp.route('/get_details')
 @login_required
 def get_details():
-    None
+    return "asd"
 
-@bp.route('/write_preliminary_report', methods =('GET, POST'))
+
+@bp.route('/write_preliminary_report')
 @login_required
 def write_preliminary_report():
-    None
+    return "asd"
 
-@bp.route('/write_detailed_report', methods =('GET, POST'))
+
+@bp.route('/write_detailed_report')
 @login_required
-def write_preliminary_report():
-    None
+def write_detailed_report():
+    return "asd"
+
 
     
     

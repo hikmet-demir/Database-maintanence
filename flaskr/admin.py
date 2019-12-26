@@ -7,3 +7,4 @@ from flask import (
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
+bp = Blueprint('admin', __name__, url_prefix='/admin')
