@@ -257,7 +257,7 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            session.clear()
+            #session.clear()
             session['user_id'] = user['id']
             user_type = db.execute(
                 'SELECT user_type FROM user WHERE username = ?', (username,)

@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css'
+              href='http://fonts.googleapis.com/css?family=Spectral'>
+        <title>Maintenance Application System</title>
+    </head>
+    <style>
+html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, p {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: black;
+      }
+      body {
+      background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
+      background-size: cover;
+      }
+      h1, h2 {
+      text-transform: uppercase;
+      font-weight: 400;
+      color: black;
+      }
+      h2 {
+      margin: 0 0 0 8px;
+      }
+      .main-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.5);
+      }
+      .left-part, form {
+      padding: 25px;
+      }
+      .left-part {
+      text-align: center;
+      }
+      .fa-graduation-cap {
+      font-size: 72px;
+      }
+      td a {
+      display:block;
+      width:100%;
+      }
+      form {
+      background: rgba(0, 0, 0, 0.7);
+      }
+      .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      }
+      .info {
+      display: flex;
+      flex-direction: column;
+      }
+      input, select {
+      padding: 5px;
+      margin-bottom: 30px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #eee;
+      }
+      input::placeholder {
+      color: #eee;
+      }
+      option:focus {
+      border: none;
+      }
+      option {
+      background: black;
+      border: none;
+      }
+      .checkbox input {
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      }
+      .checkbox a {
+      color: #26a9e0;
+      }
+      .checkbox a:hover {
+      color: #85d6de;
+      }
+      .btn-item, button {
+      padding: 10px 5px;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: none;
+      background: #26a9e0;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: #fff;
+      }
+      .btn-item {
+      display: inline-block;
+      margin: 20px 5px 0;
+      }
+      button {
+      width: 100%;
+      }
+      button:hover, .btn-item:hover {
+      background: #85d6de;
+      }
+      @media (min-width: 568px) {
+      html, body {
+      height: 100%;
+      }
+      .main-block {
+      flex-direction: row;
+      height: calc(100% - 50px);
+      }
+      .left-part, form {
+      flex: 1;
+      height: auto;
+      }
+      .bottom-up-three {
+      margin-top: 3cm;
+      margin-bottom: 3cm;
+      }
+      }
+      .nav-masthead .nav-link {
+        padding: .25rem 0;
+        font-weight: 700;
+        color: rgba(0, 0, 0, .5);
+        background-color: transparent;
+        border-bottom: .25rem solid transparent;
+        align-items: right;
+      }
+
+      .nav-masthead .nav-link:hover,
+      .nav-masthead .nav-link:focus {
+        border-bottom-color: rgba(255, 255, 255, .25);
+      }
+
+       .nav-link + .nav-link {
+        margin-left: 1rem;
+      }
+
+      .nav-link + .nav-masthead {
+        margin-right: 5rem;
+      }
+    </style>
+    <h1>Customer Page</h1>
+    <body>
+    <hr>
+    <h2>View Requests</h2>
+
+<nav class="nav nav-masthead justify-content-center">
+  <a class="nav-link active" href="/customer_welcome">Home</a>
+  <a class="nav-link" href="/see_my_complaints">My Complaints</a>
+  <a class="nav-link" href="/see_my_requests">My Requests</a>
+</nav>
+
+<form action="/customer/get_request_details">
+  <select name="products" size= {{ size }}>
+    {% for row in data %}
+            <option value={{row}}>{{  row  }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" href="/">Get Details</button>
+  <button type="submit" href="/" formaction="/customer/chat_page">Go to Chat</button>
+</form>
+
+
+
+</body>
+</html>

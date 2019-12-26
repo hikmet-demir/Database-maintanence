@@ -15,7 +15,7 @@ html, body {
       outline: none;
       font-family: Roboto, Arial, sans-serif;
       font-size: 16px;
-      color: #eee;
+      color: black;
       }
       body {
       background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
@@ -24,6 +24,7 @@ html, body {
       h1, h2 {
       text-transform: uppercase;
       font-weight: 400;
+      color: black;
       }
       h2 {
       margin: 0 0 0 8px;
@@ -122,6 +123,10 @@ html, body {
       flex: 1;
       height: auto;
       }
+      .bottom-up-three {
+      margin-top: 3cm;
+      margin-bottom: 3cm;
+      }
       }
       .nav-masthead .nav-link {
         padding: .25rem 0;
@@ -145,31 +150,23 @@ html, body {
         margin-right: 5rem;
       }
     </style>
-    <h1>Maintenance Application System Customer Page</h1>
+    <h1>Customer Page</h1>
     <body>
+    <hr>
+    <h2>Complaint Details</h2>
+
+<nav class="nav nav-masthead justify-content-center">
+  <a class="nav-link active" href="/customer_welcome">Home</a>
+  <a class="nav-link" href="/see_my_complaints">My Complaints</a>
+  <a class="nav-link" href="/see_my_requests">My Requests</a>
+</nav>
+
+    <p class="bottom-up-three">
+    Product: {{  name  }}<br>
+    Comment: {{  price  }}<br>
+    </p>
 
 
-<!--<nav class="nav nav-masthead justify-content-center">
-  <a class="nav-link active" href="#">Home</a>
-  <a class="nav-link" href="#">My Complaints</a>
-  <a class="nav-link" href="#">My Requests</a>
-</nav> -->
-
-<form action="/get_details">
-  <select name="products" size= {{ size }}>
-    
-    {% for row in data %}
-            <option value={{row}}>{{row}}</option>
-    {% endfor %}
-  </select>
-  <br><br>
-  <button type="submit" href="/">Get Details</button>
-  <button type="submit" href="/" formaction="/write_preliminary_report">Write Preliminary Report</button>
-  <button type="submit" href="/" formaction="/write_final_report">Write Final Report</button>
-  <button type="submit" href="/" formaction="/ship_item_back">Ship Item Back</button>
-  <!--<input type="submit">
-  <input type="login"> -->
-</form>
 
 </body>
 </html>
