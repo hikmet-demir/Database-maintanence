@@ -46,6 +46,10 @@ html, body {
       .fa-graduation-cap {
       font-size: 72px;
       }
+      td a {
+      display:block;
+      width:100%;
+      }
       form {
       background: rgba(0, 0, 0, 0.7); 
       }
@@ -58,11 +62,6 @@ html, body {
       display: flex;
       flex-direction: column;
       }
-      label {
-      display: inline-block;
-      width: 140px;
-      text-align: left;
-      }​
       input, select {
       padding: 5px;
       margin-bottom: 30px;
@@ -126,76 +125,39 @@ html, body {
       }
     </style>
     <h1>Maintenance Application System SignUp Page</h1>
-    <form action="/auth/register_customer" METHOD="POST">
-        <div class="title">
-          <i class="fas fa-pencil-alt"></i> 
-          <h2>Register here</h2>
-        </div>
-        <div class="info">
-          <div class="block">
-            <label>First Name</label>
-            <input type="text" name="first_name">
-          </div>
-          <div class="block">
-            <label>Middle Name</label>
-            <input type="text" name="mid_name">
-          </div>
-          <div class="block">
-            <label>Last Name</label>
-            <input type="text" name="last_name">
-          </div>
-          <div class="block">
-            <label>Username</label>
-            <input type="text" name="username">
-          </div>
-          <div class="block">
-            <label>Password</label>
-            <input type="password" name="password">
-          </div>
-          <div class="block">
-            <label>Phone No</label>
-            <input type="text" name="phone_no">
-          </div>
-          <div class="block">
-            <label>Email</label>
-            <input type="text" name="email">
-          </div>
-          <div class="block">
-            <label>Gender</label>
-            <input type="text" name="gender">
-          </div>
-          <div class="block">
-            <label>National ID</label>
-            <input type="text" name="national_id">
-          </div>
-          <div class="block">
-            <label>City</label>
-            <input type="text" name="city">
-          </div>
-          <div class="block">
-            <label>Street</label>
-            <input type="text" name="street">
-          </div>
-          <div class="block">
-            <label>Apt No</label>
-            <input type="text" name="apt_no">
-          </div>
-          <div class="block">
-            <label>District</label>
-            <input type="text" name="district">
-          </div>
-          <div class="block">
-            <label>Zip Code</label>
-            <input type="text" name="zip_code">
-          </div>
-          <div class="block">
-            <label>Date of Birth</label>
-            <input type="date" name="date_of_birth">
-          </div>
-        </div>
-        <div class="checkbox">
-          <input type="checkbox" name="checkbox"><span>I agree to the <a href="https://www.w3docs.com/privacy-policy">Simge Isil Tabak rulezzz.</a></span>
-        </div>
-        <button type="submit" href="/">Submit</button>
-      </form>
+    <body>
+
+<h2>Visible Option Values</h2>
+<p>Use the size attribute to specify the number of visible values.</p>
+<!--{% for row in data %}
+        <tr>
+        {% for d in row %}
+            <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+{% endfor %} -->
+
+<form action="/create_request">
+  <select name="cars" size="4">
+  <!-- <select name="products" size= {{ size }}>
+     {% for row in data %}
+        <tr>
+        {% for d in row %}
+            <option value="$d">d</option>
+        {% endfor %}
+        </tr>
+    {% endfor %} -->
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
+  <br><br>
+  <button type="submit" href="/">Create Request</button>
+  <button type="submit" href="/" formaction="/get_details">Get Details</button>
+  <!--<input type="submit">
+  <input type="login"> -->
+</form>
+
+</body>
 </html>
