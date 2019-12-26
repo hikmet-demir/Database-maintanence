@@ -5,7 +5,7 @@
               href='http://fonts.googleapis.com/css?family=Spectral'>
         <title>Maintenance Application System</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="customer_welcome.css" rel="stylesheet">
+        <link href="../../static/css/customer_welcome.css" rel="stylesheet">
     </head>
     <h1>Maintenance Application System Customer Page</h1>
 
@@ -26,14 +26,13 @@
   <a class="nav-link" href="/see_my_complaints">My Complaints</a>
   <a class="nav-link" href="/see_my_requests">My Requests</a>
 </nav>
-
 <form action="/create_request">
   <select name="products" size= {{ size }}>
     {% for row in data %}
             <option value={{row}}>{{  row  }}</option>
     {% endfor %}
   </select>
-  <button type="submit" href="/">Create Request</button>
+  <button type="submit" formaction="/customer/create_request">Create Request</button>
   <button type="submit" formaction="/customer/get_details">Get Details</button>
 </form>
 
