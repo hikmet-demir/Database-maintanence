@@ -1,4 +1,5 @@
 venv/
 .vscode/
-instance/sqlite3.exe
 instance/flaskr.sqlite
+.DS_Store
+instance/sqlite3.exe
