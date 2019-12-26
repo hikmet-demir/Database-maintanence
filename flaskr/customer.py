@@ -81,7 +81,6 @@ def complete_request():
         db = get_db()
 
         # SIMDILIK TEKNISYENI ELIMLE YERLESTIRDIM
-        # random bir mekanizma mantikli duruyor
         # DEMAND SILINMELI
         
         db.execute(
