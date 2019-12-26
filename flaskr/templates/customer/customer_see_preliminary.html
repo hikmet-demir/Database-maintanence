@@ -153,7 +153,7 @@ html, body {
     <h1>Customer Page</h1>
     <body>
     <hr>
-    <h2>Request Details</h2>
+    <h2>Preliminary Report</h2>
 
 <nav class="nav nav-masthead justify-content-center">
   <a class="nav-link active" href="/customer_welcome">Home</a>
@@ -163,17 +163,16 @@ html, body {
 
     <p class="bottom-up-three">
     Product: {{  name  }}<br>
-    Operation: {{  price  }}<br>
     </p>
 
-<form action="/customer/see_preliminary_report">
-  <button type="submit" href="/">See Preliminary Report</button>
-</form>
-<form action="/customer/see_detailed_report">
-  <button type="submit" href="/">See Detailed Report</button>
-</form>
-<form action="/customer/create_report">
-  <button type="submit" href="/">Create Report</button>
+    <p>
+          <label>Preliminary Report</label>
+          <textarea>  {{  prem_report  }} </textarea>
+    </p>
+
+<form action="/customer/customer_request_details">
+  <button type="submit" href="/">Accept</button>
+  <button type="submit" href="/">Decline</button>
 </form>
 
 </body>
