@@ -27,14 +27,6 @@ html, body {
       h2 {
       margin: 0 0 0 8px;
       }
-
-      .radiobuttonsimge{
-        padding-left: 70%;
-      }
-
-      .textboxsimge{
-        padding-top: 0%;
-      }
       .main-block {
       display: flex;
       flex-direction: column;
@@ -79,7 +71,6 @@ html, body {
       input::placeholder {
       color: #eee;
       }
-
       option:focus {
       border: none;
       }
@@ -93,10 +84,6 @@ html, body {
       }
       .checkbox a {
       color: #26a9e0;
-      }
-      .bottom-up-three {
-      margin-top: 3cm;
-      margin-bottom: 3cm;
       }
       .checkbox a:hover {
       color: #85d6de;
