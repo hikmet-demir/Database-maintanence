@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css'
+              href='http://fonts.googleapis.com/css?family=Spectral'>
+        <title>Maintenance Application System</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="create_request.css" rel="stylesheet">
+    </head>
+    <h1>Maintenance Application System Create Request Page</h1>
+
+<body>
+
+<h2>Visible Option Values</h2>
+
+
+<p>Use the size attribute to specify the number of visible values.</p>
+{% for row in data %}
+        <tr>
+        {% for d in row %}
+            <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+{% endfor %}
+
+<nav class="nav nav-masthead justify-content-center">
+  <a class="nav-link active" href="#">Home</a>
+  <a class="nav-link" href="#">My Complaints</a>
+  <a class="nav-link" href="#">My Requests</a>
+</nav>
+<form class="radiobuttonsimge" >
+  <input type="radio" name="request" value="renew" checked> Renew<br>
+  <input type="radio" name="request" value="repair"> Repair<br>
+  <input type="radio" name="request" value="return"> Return
+</form>
+
+<form action="/create_request">
+  <select name="products" size= {{ size }}>
+     {% for row in data %}
+            <option value={{row}}>{{row}}</option>
+    {% endfor %}
+
+  </select>
+  <br><br>
+  <button type="submit" href="/">Create Request</button>
+
+</form>
+</body>
+</html>
