@@ -4,6 +4,13 @@ DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS customer_service_asisstant;
 DROP TABLE IF EXISTS technician;
 DROP TABLE IF EXISTS repairment;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS parts;
+DROP TABLE IF EXISTS parts_repairment;
+DROP TABLE IF EXISTS shipping;
+DROP TABLE IF EXISTS complaint;
 
 
 CREATE TABLE user(
