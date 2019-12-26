@@ -9,7 +9,7 @@
 html, body {
       min-height: 100%;
       }
-      body, div, form, input, select, p { 
+      body, div, form, input, select, p {
       padding: 0;
       margin: 0;
       outline: none;
@@ -35,7 +35,7 @@ html, body {
       align-items: center;
       height: 100%;
       padding: 25px;
-      background: rgba(0, 0, 0, 0.5); 
+      background: rgba(0, 0, 0, 0.5);
       }
       .left-part, form {
       padding: 25px;
@@ -51,7 +51,7 @@ html, body {
       width:100%;
       }
       form {
-      background: rgba(0, 0, 0, 0.7); 
+      background: rgba(0, 0, 0, 0.7);
       }
       .title {
       display: flex;
@@ -76,7 +76,7 @@ html, body {
       border: none;
       }
       option {
-      background: black; 
+      background: black;
       border: none;
       }
       .checkbox input {
@@ -92,9 +92,9 @@ html, body {
       .btn-item, button {
       padding: 10px 5px;
       margin-top: 20px;
-      border-radius: 5px; 
+      border-radius: 5px;
       border: none;
-      background: #26a9e0; 
+      background: #26a9e0;
       text-decoration: none;
       font-size: 15px;
       font-weight: 400;
@@ -123,34 +123,57 @@ html, body {
       height: auto;
       }
       }
+      .nav-masthead .nav-link {
+        padding: .25rem 0;
+        font-weight: 700;
+        color: rgba(0, 0, 0, .5);
+        background-color: transparent;
+        border-bottom: .25rem solid transparent;
+        align-items: right;
+      }
+
+      .nav-masthead .nav-link:hover,
+      .nav-masthead .nav-link:focus {
+        border-bottom-color: rgba(255, 255, 255, .25);
+      }
+
+       .nav-link + .nav-link {
+        margin-left: 1rem;
+      }
+
+      .nav-link + .nav-masthead {
+        margin-right: 5rem;
+      }
     </style>
-    <h1>Maintenance Application System SignUp Page</h1>
+    <h1>Maintenance Application System Customer Page</h1>
     <body>
 
 <h2>Visible Option Values</h2>
 <p>Use the size attribute to specify the number of visible values.</p>
-<!--{% for row in data %}
+{% for row in data %}
         <tr>
         {% for d in row %}
             <td>{{ d }}</td>
         {% endfor %}
         </tr>
-{% endfor %} -->
+{% endfor %}
+
+<nav class="nav nav-masthead justify-content-center">
+  <a class="nav-link active" href="#">Home</a>
+  <a class="nav-link" href="#">My Complaints</a>
+  <a class="nav-link" href="#">My Requests</a>
+</nav>
 
 <form action="/create_request">
-  <select name="cars" size="4">
-  <!-- <select name="products" size= {{ size }}>
+  <select name="products" size= {{ size }}>
      {% for row in data %}
-        <tr>
-        {% for d in row %}
-            <option value="$d">d</option>
-        {% endfor %}
-        </tr>
-    {% endfor %} -->
+            <option value={{row}}>{{row}}</option>
+    {% endfor %}
+    <!--
     <option value="volvo">Volvo</option>
     <option value="saab">Saab</option>
     <option value="fiat">Fiat</option>
-    <option value="audi">Audi</option>
+    <option value="audi">Audi</option>-->
   </select>
   <br><br>
   <button type="submit" href="/">Create Request</button>

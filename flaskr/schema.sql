@@ -14,7 +14,8 @@ first_name VARCHAR(50) NOT NULL,
 middle_name VARCHAR(50),
 last_name VARCHAR(50) NOT NULL,
 phone INTEGER NOT NULL,
-gender VARCHAR(6)
+gender VARCHAR(6),
+user_type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE customer(
