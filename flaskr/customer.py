@@ -62,17 +62,21 @@ def create_request():
             'SELECT * FROM product WHERE id = ?', (product_id,)
         ).fetchone()
 
+    id = product["id"]
+    model = product['model']
+    warranty = product['years_of_warranty']
     today = date.today()
     time_of_buying = product["time_of_buying"]
     difference_year = int(diff_dates(today, time_of_buying)/365)
-    
+
+    if difference_year >= warranty:
+        error = "Warranty is expired, you cannot create a request for this product!"
+        
 
     print ("{} days between {} and {}".format(result1, today, time_of_buying))   
     
 
-    id = product["id"]
-    model = product['model']
-    warranty = product['years_of_warranty']
+    
     
     return render_template('customer/create_request.html',
         id=product_id, model=model, years_of_warranty=warranty,
