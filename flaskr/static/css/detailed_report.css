@@ -9,3 +9,10 @@ hr {
   color: light-grey;
   width: 95%;
 }
+.vl {
+  border-left: 5px solid black;
+  height: 50%;
+}
+select.form-control[multiple], select.form-control[size]{
+  height: 50%;
+}
