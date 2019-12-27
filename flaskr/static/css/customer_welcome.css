@@ -75,7 +75,7 @@ html, body {
       border: none;
       }
       option {
-      background: black;
+      background: white !important;
       border: none;
       }
       .checkbox input {

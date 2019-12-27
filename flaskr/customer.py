@@ -5,6 +5,10 @@ from flask import (
 from flaskr.auth import login_required
 from flaskr.db import get_db
 import sys
+from datetime import date
+
+def diff_dates(date1, date2):
+    return abs(date2-date1).days
 
 
 bp = Blueprint('customer', __name__, url_prefix='/customer')
@@ -19,7 +23,7 @@ def welcome():
     
     # outer brackets are required, it doesnt work without them somehow
     # thats why id's are shown in the bracets on the website
-    data = [[i[0] for i in products]]
+    data = [[i[0]] for i in products]
 
     return render_template('customer/customer_welcome.html', data = data, size = len(data))
 
@@ -57,6 +61,14 @@ def create_request():
     product =  db.execute(
             'SELECT * FROM product WHERE id = ?', (product_id,)
         ).fetchone()
+
+    today = date.today()
+    time_of_buying = product["time_of_buying"]
+    difference_year = int(diff_dates(today, time_of_buying)/365)
+    
+
+    print ("{} days between {} and {}".format(result1, today, time_of_buying))   
+    
 
     id = product["id"]
     model = product['model']

@@ -267,11 +267,11 @@ def login():
                 return redirect(url_for('customer.welcome'))
 
             elif user_type == "technician":
-                return render_template('technician/technician_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('technician.welcome'))
             elif user_type == "asisstant":
-                return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('asisstant.welcome'))
             elif user_type == "admin":
-                return render_template('customer/admin_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('admin.welcome'))
 
         flash(error)
 
