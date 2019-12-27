@@ -7,11 +7,10 @@ from flaskr.db import get_db
 import sys
 from datetime import date
 
+bp = Blueprint('customer', __name__, url_prefix='/customer')
+
 def diff_dates(date1, date2):
     return abs(date2-date1).days
-
-
-bp = Blueprint('customer', __name__, url_prefix='/customer')
 
 @bp.route('/welcome',methods =('GET','POST'))
 def welcome():
@@ -70,10 +69,9 @@ def create_request():
     difference_year = int(diff_dates(today, time_of_buying)/365)
 
     if difference_year >= warranty:
-        error = "Warranty is expired, you cannot create a request for this product!"
+        return "Warranty is expired, you cannot create a request for this product!"
         
-
-    print ("{} days between {} and {}".format(result1, today, time_of_buying))   
+    print ("{} days between {} and {}".format(difference_year, today, time_of_buying))   
     
 
     

@@ -13,35 +13,28 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <form action="/admin/getCustomers" class="form-group">
-          <select multiple class="form-control" id="exampleFormControlSelect2">
-      <!--      {% for row in data %}
-                    <option value={{row}}>{{  row  }}</option>
-            {% endfor %}-->
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-              <option >Zego</option>
-          </select>
+      <form class="form-group">
+          
       </form>
     </div>
     <div class="col-sm-4">
       <h3>Product to Add</h3>
-      <form action="/admin.add_product" method="get" id="nameform">
-        Product name: <input class="form-control" type="text" name="pname"><br>
+      <form action="/admin/add_product" method="get" id="nameform">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <select multiple class="form-control" name="customer" id="exampleFormControlSelect2">
+              {% for row in data %}
+                       <option value={{row[0]}}>{{  row[0],row[1]  }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
         Product model: <input class="form-control" type="text" name="model"><br>
+        Product color: <input class="form-control" type="text" name="color"><br>
         Warranty: <input class="form-control" type="text" name="warranty"><br>
-        Time of buying: <input class="form-control" type="text" name="timeofbuying"><br>
+        Time of buying: <input class="form-control" type="date" name="timeofbuying"><br>
         Price: <input class="form-control" type="text" name="price"><br>
+        Category ID: <input class="form-control" type="text" name="cat_id"><br>
       </form>
 
       <button type="submit" form="nameform" value="Add_Product">Add Product</button>
