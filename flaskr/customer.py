@@ -70,44 +70,52 @@ def create_request():
 
     if difference_year >= warranty:
         return "Warranty is expired, you cannot create a request for this product!"
-        
-    print ("{} days between {} and {}".format(difference_year, today, time_of_buying))   
-    
 
-    
+    repairments_of_product =  db.execute(
+            'SELECT * FROM repairment WHERE product_id = ?', (product_id,)
+        ).fetchall()
+
+    if repairments_of_product is not None:
+        for row in repairments_of_product:
+            if row[5] != "closed":
+                return "There is a continuing request for this product, you cannot create a new one!"    
     
     return render_template('customer/create_request.html',
-        id=product_id, model=model, years_of_warranty=warranty,
-        data=["asd","asdd"])
+        id=product_id, model=model, years_of_warranty=warranty)
     
 @bp.route('/complete_request',methods =('GET','POST'))
 def complete_request():
     product_id = request.args['product_id']
-    request_type = request.args['request']
     problem = request.args['myTextBox']
     customer_id = g.user['id']
+    status = "shippedToTechnician"
 
-    print(product_id, file=sys.stderr)
-    print(request_type, file=sys.stderr)
-    print(problem, file=sys.stderr)
+    db = get_db()
 
-    if request_type == 'repair':
-        db = get_db()
+    # SIMDILIK TEKNISYENI ELIMLE YERLESTIRDIM REPAIRMENT tablosu
+    db.execute(
+            'INSERT INTO repairment (technician_id, product_id, customer_id, \
+                problem,status) VALUES (?, ?, ?, ?, ?)',
+            (1, product_id, customer_id, problem, status)
+        )
 
-        # SIMDILIK TEKNISYENI ELIMLE YERLESTIRDIM
-        # DEMAND SILINMELI
-        
-        db.execute(
-                'INSERT INTO repairment (technician_id, product_id, customer_id, \
-                    problem, demand) VALUES (?, ?, ?, ?, ?)',
-                (1, product_id, customer_id, problem, "repair")
-            )
+    db.commit()
 
-        db.commit()
-    else:
-        print("ses")
-        # we need to handle this case later!!!
-    
+    repairment =  db.execute(
+            'SELECT * FROM repairment WHERE product_id = ?', (product_id,)
+        ).fetchone()
+
+    repairment_id = repairment["id"]
+
+    delivery_date = today = date.today()
+
+    db.execute(
+            'INSERT INTO shipping (delivery_date, repairment_id, customer_id, \
+                technician_id,status) VALUES (?, ?, ?, ?, ?)',
+            (delivery_date, repairment_id, customer_id, 1, "onWay")
+        )
+
+    db.commit()
     return redirect(url_for('customer.welcome'))
     
 
