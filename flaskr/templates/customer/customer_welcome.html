@@ -7,11 +7,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="../../static/css/customer_welcome.css" rel="stylesheet">
     </head>
-    <h1>Maintenance Application System Customer Page</h1>
-
 <body>
 
-<h2>Visible Option Values</h2>
 <!--<p>Use the size attribute to specify the number of visible values.</p>
 {% for row in data %}
         <tr>
@@ -21,11 +18,25 @@
         </tr>
 {% endfor %}-->
 
-<nav class="nav nav-masthead justify-content-center">
-  <a class="nav-link active" href="#">Home</a>
-  <a class="nav-link" href="/see_my_complaints">My Complaints</a>
-  <a class="nav-link" href="/see_my_requests">My Requests</a>
-</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Customer Welcome</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Complaints</a>
+      </li>
+    </ul>
+  </nav>
+  <hr>
 <div class="container">
   <form>
     <div class="form-group">
@@ -34,7 +45,7 @@
               <option value={{row}}>{{  row  }}</option>
       {% endfor %}
     </select>
-    
+
     <button type="submit" formaction="/customer/create_request">Create Request</button>
     <button type="submit" formaction="/customer/get_details">Get Details</button>
     </div>
