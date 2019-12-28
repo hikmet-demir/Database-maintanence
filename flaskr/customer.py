@@ -117,5 +117,9 @@ def complete_request():
 
     db.commit()
     return redirect(url_for('customer.welcome'))
+
+@bp.route('/get_requests',methods =('GET','POST'))
+def get_requests():
+    db = get_db()
     
 

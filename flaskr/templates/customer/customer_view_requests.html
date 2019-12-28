@@ -161,8 +161,8 @@ html, body {
   <a class="nav-link" href="/see_my_requests">My Requests</a>
 </nav>
 
-<form action="/customer/get_request_details">
-  <select name="products" size= {{ size }}>
+<form>
+  <select name="requests" size= {{ size }}>
     {% for row in data %}
             <option value={{row}}>{{  row  }}</option>
     {% endfor %}
