@@ -31,10 +31,12 @@
     Product: {{  data.name  }}<br>
     Status: {{  data.status  }}<br>
     Price: {{  data.price  }}<br>
+    Price: {{  data.req_id  }}<br>
     </p>
 
-<form action="/customer/see_preliminary_report">
-  <button type="submit" href="/">See Preliminary Report</button>
+<form action="{{ url_for('customer.see_preliminary_report') }}" method="POST">
+  <input type="hidden" name="req_id" value= "{{data.req_id}}" />
+  <button type="submit">See Preliminary Report</button>
 </form>
 <form action="/customer/see_detailed_report">
   <button type="submit" href="/">See Detailed Report</button>
