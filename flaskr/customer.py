@@ -121,7 +121,24 @@ def complete_request():
 @bp.route('/get_requests',methods =('GET','POST'))
 def get_requests():
     # db = get_db()
-    return render_template('customer/customer_view_requests.html')
+    user_id = g.user['id']
+    db = get_db()
+    products =  db.execute(
+        'SELECT * FROM repairment WHERE customer_id = ?', (g.user['id'],)
+    ).fetchall()
+    data = [[i[0]] for i in products]
+
+    return render_template('customer/customer_view_requests.html', data = data, size = len(data) )
     
+@bp.route('/get_complaints',methods =('GET','POST'))
+def get_complaints():
+    # db = get_db()
+    user_id = g.user['id']
+    return render_template('customer/customer_view_complaints.html')
+
+@bp.route('/get_request_details', methods=('GET','POST'))
+def get_request_details():
+    return "asdasd"
+    return render_template('customer/customer_request_details.html')
     
 
