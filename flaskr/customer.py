@@ -47,7 +47,7 @@ def get_details():
         ).fetchone()['cat_name']
     
     
-    return render_template('customer/customer_get_details.html'
+    return render_template('customer/customer_get_product_details.html'
         ,id=product_id, price=price, model=model, Color=color,
         years_of_warranty=warranty, category_name=cat_name)
 
@@ -96,7 +96,7 @@ def complete_request():
     db.execute(
             'INSERT INTO repairment (technician_id, product_id, customer_id, \
                 problem,status) VALUES (?, ?, ?, ?, ?)',
-            (1, product_id, customer_id, problem, status)
+            (2, product_id, customer_id, problem, status)
         )
 
     db.commit()
@@ -120,7 +120,8 @@ def complete_request():
 
 @bp.route('/get_requests',methods =('GET','POST'))
 def get_requests():
-    db = get_db()
+    # db = get_db()
+    return render_template('customer/customer_view_requests.html')
     
     
 

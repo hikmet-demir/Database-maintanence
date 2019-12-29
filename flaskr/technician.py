@@ -11,8 +11,14 @@ bp = Blueprint('technician', __name__, url_prefix='/technician')
 
 @bp.route('/technician_index')
 @login_required
-def technician_index():
-    return "sad"
+def welcome():
+    db = get_db()
+
+    my_requests =  db.execute(
+            'SELECT * FROM repairment WHERE technician_id = ?', (g.user['id'],)
+        ).fetchall()
+
+    return render_template('technician/technician_welcome.html',data=my_requests)
 
 
 @bp.route('/get_details')

@@ -29,20 +29,7 @@
       </nav>
       <hr>
 
-<<<<<<< HEAD
-<form>
-  <select name="requests" size= {{ size }}>
-    {% for row in data %}
-            <option value={{row}}>{{  row  }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" href="/">Get Details</button>
-  <button type="submit" href="/" formaction="/customer/get_shipment_info">Get Shipment Info</button>
-  <button type="submit" href="/" formaction="/customer/get_details">Approve Shipment</button>
-</form>
-=======
       <div class="container" >
->>>>>>> cbfba2d49ebf09e26f85bed5a1a4dc55359297d7
 
         <div class="row">
           <div class="col-sm-4">
@@ -68,10 +55,10 @@
             </form>
           </div>
           <div class="col-sm-4">
-            <button type="submit" formaction="/customer/customer_request_details">Get Details</button>
-            <button type="submit" formaction="/customer/write_preliminary">Write Preliminary</button>
-            <button type="submit" formaction="/customer/write_detailed">Write Detailed Report</button>
-            <button type="submit" formaction="/customer/item_received">Received the Item</button>
+            <button type="submit" formaction="/customer/get_request_details">Get Details</button>
+            <button type="submit" formaction="/customer/make_decision">Make a Decision</button>
+            <button type="submit" formaction="/customer/get_the_product_back">Recived the Product</button>
+            <button type="submit" formaction="/customer/evaluate">Evaluate</button>
           </div>
         </form>
       </div>
