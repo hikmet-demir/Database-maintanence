@@ -1,0 +1,47 @@
+<html>
+<body>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="../../static/css/admin.css" rel="stylesheet">
+<h1>Maintenance Application Admin Page</h1>
+
+
+<div class="jumbotron text-center">
+  <h1>My First Bootstrap Page</h1>
+  <p>Resize this responsive page to see the effect!</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <form class="form-group">
+          
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <h3>Product to Add</h3>
+      <form action="/admin/add_product" method="get" id="nameform">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <select multiple class="form-control" name="customer" id="exampleFormControlSelect2">
+              {% for row in data %}
+                       <option value={{row[0]}}>{{  row[0],row[1]  }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        Product model: <input class="form-control" type="text" name="model"><br>
+        Product color: <input class="form-control" type="text" name="color"><br>
+        Warranty: <input class="form-control" type="text" name="warranty"><br>
+        Time of buying: <input class="form-control" type="date" name="timeofbuying"><br>
+        Price: <input class="form-control" type="text" name="price"><br>
+        Category ID: <input class="form-control" type="text" name="cat_id"><br>
+      </form>
+
+      <button type="submit" form="nameform" value="Add_Product">Add Product</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

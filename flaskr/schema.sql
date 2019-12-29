@@ -65,13 +65,12 @@ technician_id INTEGER NOT NULL,
 product_id INTEGER NOT NULL,
 customer_id INTEGER NOT NULL,
 problem VARCHAR(150) NOT NULL,
-demand VARCHAR(150) NOT NULL,
-status VARCHAR(150),
+status VARCHAR(150) NOT NULL,
 decision VARCHAR(150),
-satisfaction VARCHAR(150),
-CHECK( demand IN ( "return", "repair", "renew")),
-CHECK( status IN ( "ongoing", "shipped", "closed", "complained")),
-CHECK( decision IN ( "yes", "no")),
+prelim VARCHAR(150),
+CHECK( decision IN ( "return", "renew", "repair")),
+CHECK( status IN ( "shippedToTechnician", "waitingForPrelim","waitingForCustomerDecision", "waitingForDetailedReport", "closed", "newItemShippedToCustomer", 
+"repairedItemShippedToCustomer", "waitingForCustomerEvaluation","complained")),
 FOREIGN KEY (technician_id) REFERENCES technician(id) on delete cascade on update cascade,
 FOREIGN KEY (product_id)  REFERENCES  product(id) on delete cascade on update cascade,
 FOREIGN KEY (customer_id)  REFERENCES  customer(id) on delete cascade on update cascade
@@ -79,13 +78,15 @@ FOREIGN KEY (customer_id)  REFERENCES  customer(id) on delete cascade on update 
 
 CREATE TABLE product (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
+customer_id INTEGER NOT NULL,
 model VARCHAR(50) NOT NULL,
 color VARCHAR(14),
 years_of_warranty INTEGER NOT NULL, 
 time_of_buying DATE NOT NULL,
 price FLOAT NOT NULL,
 cat_id INTEGER NOT NULL,
-FOREIGN KEY (cat_id) REFERENCES category(id) on delete cascade on update cascade
+FOREIGN KEY (cat_id) REFERENCES category(id) on delete cascade on update cascade,
+FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade
 );
 
 CREATE TABLE category (
@@ -145,12 +146,12 @@ problem VARCHAR(150) NOT NULL,
 current_status  VARCHAR(50) NOT NULL,
 final_status VARCHAR(50),
 repairment_id INTEGER NOT NULL,
-customer_service_asisstant_id INTEGER NOT NULL,
+customer_service_asisstant_id INTEGER,
 customer_id INTEGER NOT NULL,
 FOREIGN KEY (repairment_id) REFERENCES repairment(id) on delete cascade on update cascade,
 FOREIGN KEY (customer_service_asisstant_id) REFERENCES customer_service_assistant(id) on delete cascade on update cascade,
 FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade,
-CHECK (current_status IN ("ongoing", "finished", "onOthers", "waiting")),
+CHECK (current_status IN ("ongoing", "finished", "waiting")),
 CHECK (final_status IN ("positive", "negative"))
 );
 

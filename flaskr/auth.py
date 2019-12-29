@@ -226,8 +226,8 @@ def register_technician():
             db.commit()
             # insert into customer_service_asisstant table
             db.execute(
-                'INSERT INTO customer_service_asisstant (id) VALUES (?)',
-                (id,)
+                'INSERT INTO technician (id, profession) VALUES (?,?)',
+                (id,profession)
             )
 
             db.commit()
@@ -251,27 +251,32 @@ def login():
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
+
         if user is None:
             error = 'Incorrect username.'
+        elif username == "admin" and password == "admin":
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('admin.welcome'))
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
 
         if error is None:
-            #session.clear()
+            session.clear()
             session['user_id'] = user['id']
             user_type = db.execute(
                 'SELECT user_type FROM user WHERE username = ?', (username,)
                 ).fetchone()['user_type']
 
             if user_type == "customer":
-                return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('customer.welcome'))
 
             elif user_type == "technician":
-                return render_template('technician/technician_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('technician.welcome'))
             elif user_type == "asisstant":
-                return render_template('customer/customer_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
-            elif user_type == "admin":
-                return render_template('customer/admin_welcome.html',data = ["aaa","bbb","ccc"],size = 3)
+                return redirect(url_for('asisstant.welcome'))
+    
+                
 
         flash(error)
 

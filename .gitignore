@@ -3,3 +3,4 @@ venv/
 instance/flaskr.sqlite
 .DS_Store
 instance/sqlite3.exe
+*.pyc
