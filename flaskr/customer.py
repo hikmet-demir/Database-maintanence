@@ -122,4 +122,5 @@ def complete_request():
 def get_requests():
     db = get_db()
     
+    
 

@@ -3,15 +3,49 @@
         <meta charset='utf-8'/>
         <link rel='stylesheet' type='text/css'
               href='http://fonts.googleapis.com/css?family=Spectral'>
-        <title>Maintenance Application System</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="create_request.css" rel="stylesheet">
+        <link href="../../static/css/create_request.css" rel="stylesheet">
     </head>
-    <h1>Maintenance Application System Create Request Page</h1>
-
 <body>
 
+<<<<<<< HEAD
 <h2>Visible Option Values</h2>
+=======
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Customer Create Request Page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">My Requests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">My Complaints</a>
+        </li>
+      </ul>
+    </nav>
+    <hr>
+
+<!-- <p>Use the size attribute to specify the number of visible values.</p>
+{% for row in data %}
+        <tr>
+        {% for d in row %}
+            <td>{{ d }}</td>
+        {% endfor %}
+        </tr>
+{% endfor %} -->
+
+<!-- <nav class="nav nav-masthead justify-content-center">
+  <a class="nav-link active" href="#">Home</a>
+  <a class="nav-link" href="#">My Complaints</a>
+  <a class="nav-link" href="#">My Requests</a>
+</nav> -->
+>>>>>>> cbfba2d49ebf09e26f85bed5a1a4dc55359297d7
 
 <form class="top" action="/customer/complete_request" id="nameform">
   <input type="hidden" name="product_id" value={{ id }} />
