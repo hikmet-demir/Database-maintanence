@@ -122,6 +122,28 @@ def complete_request():
 def get_requests():
     # db = get_db()
     return render_template('customer/customer_view_requests.html')
+
+@bp.route('/get_complaints',methods =('GET','POST'))
+def get_complaints():
+    # db = get_db()
+    db = get_db()
+
+    complaints =  db.execute(
+            'SELECT c.id, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.customer_id = ?', (g.user['id'],)
+        ).fetchall()
+
+    return render_template('customer/customer_view_complaints.html', data = complaints)
+
+@bp.route('/get_complaint_details',methods =('GET','POST'))
+def get_complaint_details():
+    db = get_db()
+    complaint_id = request.args["complaints"][0]
+
+    complaint_info =  db.execute(
+            'SELECT c.problem, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.customer_id = ?', (g.user['id'],)
+        ).fetchone()
+
+    return render_template('customer/customer_complaint_details.html', data = complaint_info)
     
     
 

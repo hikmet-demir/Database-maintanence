@@ -29,10 +29,11 @@
       </nav>
       <hr>
 
-<form action="/customer/get_request_details">
-  <select name="products" size= {{ size }}>
+<form action="/customer/get_complaint_details">
+  <h4>Complaint IDs-Modles:</h4>
+  <select name="complaints">
     {% for row in data %}
-            <option value={{row}}>{{  row  }}</option>
+            <option value={{  row.id  }}>{{  row.id  }} - {{  row.model  }}</option>
     {% endfor %}
   </select>
   <button type="submit" href="/">Get Details</button>

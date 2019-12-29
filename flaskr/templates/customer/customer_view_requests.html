@@ -35,22 +35,9 @@
           <div class="col-sm-4">
             <form action="/admin/getCustomers" class="form-group">
                 <select multiple class="form-control" id="exampleFormControlSelect2" height="80%;">
-            <!--      {% for row in data %}
-                          <option value={{row}}>{{  row  }}</option>
-                  {% endfor %}-->
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
-                  <option >Product</option>
+                  {% for row in data %}
+                          <option value={{row}}>{{  row.model  }}</option>
+                  {% endfor %}
                 </select>
             </form>
           </div>
