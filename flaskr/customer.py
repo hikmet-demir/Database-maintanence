@@ -183,8 +183,30 @@ def get_request_details():
     data = {
         "name":product_model,
         "status":req_status,
-        "price":product_price
+        "price":product_price,
+        "req_id":request_id
     }
     return render_template('customer/customer_request_details.html', data=data)
-    
+
+@bp.route('/see_preliminary_report',methods=['GET','POST'])
+def see_preliminary_report():
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.form["req_id"]
+    req =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+
+    product_id = req["product_id"]
+    #prelim = req["prelim"]
+    prelim = "This product has been examined and decided to return"
+    product = db.execute(
+        'SELECT * FROM product WHERE id = ?', (product_id,)
+    ).fetchone()
+    product_model = product["model"]
+    data = {
+        "name": product_model,
+        "prelim":prelim
+    }
+    return render_template('customer/customer_see_preliminary.html', data=data)
 
