@@ -121,8 +121,15 @@ def complete_request():
 @bp.route('/get_requests',methods =('GET','POST'))
 def get_requests():
     # db = get_db()
-<<<<<<< HEAD
-    return render_template('customer/customer_view_requests.html')
+    user_id = g.user['id']
+
+    db = get_db()
+    requests =  db.execute(
+        'SELECT * FROM repairment WHERE customer_id = ?', (g.user['id'],)
+    ).fetchall()
+    data = [[i[0]] for i in requests]
+
+    return render_template('customer/customer_view_requests.html', data = data, size = len(data) )
 
 @bp.route('/get_complaints',methods =('GET','POST'))
 def get_complaints():
@@ -145,22 +152,7 @@ def get_complaint_details():
         ).fetchone()
 
     return render_template('customer/customer_complaint_details.html', data = complaint_info)
-=======
-    user_id = g.user['id']
 
-    db = get_db()
-    requests =  db.execute(
-        'SELECT * FROM repairment WHERE customer_id = ?', (g.user['id'],)
-    ).fetchall()
-    data = [[i[0]] for i in requests]
-
-    return render_template('customer/customer_view_requests.html', data = data, size = len(data) )
-    
-@bp.route('/get_complaints',methods =('GET','POST'))
-def get_complaints():
-    # db = get_db()
-    user_id = g.user['id']
-    return render_template('customer/customer_view_complaints.html')
 
 @bp.route('/get_request_details', methods=('GET','POST'))
 def get_request_details():
@@ -173,7 +165,6 @@ def get_request_details():
 
     product_id = req["product_id"]
     req_status = req["status"]
->>>>>>> a5767eb776ec5176573f56468c3fa73348939eda
     
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
