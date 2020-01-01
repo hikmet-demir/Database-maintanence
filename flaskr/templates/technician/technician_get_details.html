@@ -8,7 +8,7 @@
         <title>Maintenance Application System</title>
     </head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Request Details</a>
+      <a class="navbar-brand" href="#">Technician Get Details</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,20 +17,18 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Complaints</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Requests</a>
-          </li>
         </ul>
       </nav>
       <hr>
 
     <p class="bottom-up-three">
+    Customer: {{  data.customer_name  }}<br>
     Product: {{  data.name  }}<br>
     Status: {{  data.status  }}<br>
     Price: {{  data.price  }}<br>
+    Problem: {{  data.problem  }}<br>
+    Demand: {{  data.demand  }}<br>
+    Satisfaction: {{  data.satisfaction  }}<br>
 
     </p>
 
