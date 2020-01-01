@@ -158,7 +158,7 @@ def get_complaint_details():
 def get_request_details():
     db = get_db()
     user_id = g.user['id']
-    request_id = request.args["requests"][1]
+    request_id = request.args["requests"][0]
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()

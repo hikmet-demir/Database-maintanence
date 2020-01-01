@@ -86,7 +86,8 @@ time_of_buying DATE NOT NULL,
 price FLOAT NOT NULL,
 cat_id INTEGER NOT NULL,
 FOREIGN KEY (cat_id) REFERENCES category(id) on delete cascade on update cascade,
-FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade
+FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade,
+CHECK( model IN ( "phone", "tablet", "laptop"))
 );
 
 CREATE TABLE category (
@@ -107,11 +108,12 @@ FOREIGN KEY (complaint_id) REFERENCES complaint(id) on delete cascade on update 
 );
 
 CREATE TABLE parts (
-id INTEGER,
+id INTEGER NOT NULL,
 product_id INTEGER NOT NULL,
 name VARCHAR(50) NOT NULL,
 PRIMARY KEY (id, product_id),
-FOREIGN KEY (product_id) REFERENCES product(id) on delete cascade on update cascade
+FOREIGN KEY (product_id) REFERENCES product(id) on delete cascade on update cascade,
+CHECK( name IN ( "screen", "battery", "keyboard", "CPU", "GPU"))
 );
 
 CREATE TABLE parts_repairment(
