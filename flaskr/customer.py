@@ -117,7 +117,7 @@ def complete_request():
 
     repairment_id = repairment["id"]
 
-    delivery_date = today = date.today()
+    delivery_date = date.today()
 
     db.execute(
             'INSERT INTO shipping (delivery_date, repairment_id, customer_id, \
@@ -195,20 +195,26 @@ def get_request_details():
 
 @bp.route('/make_decision', methods=['GET','POST'])
 def make_decision():
+
     db = get_db()
     user_id = g.user['id']
     request_id = request.args["requests"]
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
+    
+    status = req["status"]
+
+    if status != "waitingForCustomerDecision":
+        return "Current status of the request is not applicable for this action!"
+
     product_id = req["product_id"]
-    #prelim = req["prelim"]
-    prelim = "This product has been examined and decided to return"
+    prelim = req["prelim"]
+
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
     product_id = req["product_id"]
-    req_status = req["status"]
     
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
@@ -216,12 +222,13 @@ def make_decision():
     product_model = product["model"]
     data = {
         "name": product_model,
-        "prelim":prelim
+        "prelim" : prelim
     }
     return render_template('customer/customer_see_preliminary.html', data=data)
 
-@bp.route('/see_preliminary_report',methods=['GET','POST'])
-def see_preliminary_report():
+
+@bp.route('/recievedTheProduct',methods=['GET','POST'])
+def recievedTheProduct():
     db = get_db()
     user_id = g.user['id']
     request_id = request.form["req_id"]
@@ -229,18 +236,52 @@ def see_preliminary_report():
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
 
+    status = req["status"]
     product_id = req["product_id"]
-    #prelim = req["prelim"]
-    prelim = "This product has been examined and decided to return"
-    product = db.execute(
-        'SELECT * FROM product WHERE id = ?', (product_id,)
-    ).fetchone()
-    product_model = product["model"]
-    data = {
-        "name": product_model,
-        "prelim":prelim
-    }
-    return render_template('customer/customer_see_preliminary.html', data=data)
+    req_status = req["status"]
+
+    if status == "repairedItemShippedToCustomer"):
+        #statusu waiting for evaluation yapicaz
+        # shippingi delivered yapicaz
+        # recieve date yi simdiki zaman yapicaz
+
+        db.execute(
+            'UPDATE repairment SET status = "waitingForCustomerEvaluation"\
+            WHERE id = ?', (request_id,)
+        )
+
+        db.commit()
+
+        db.execute(
+            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
+            WHERE status = "onWay" AND repairment_id = ?', (date.today(), request_id)
+        )
+
+        db.commit()
+
+
+    elif status == "newItemShippedToCustomer":
+        # statusu closed yapicaz
+        # shippidi delivered yapciaz
+        # delivery datayi bugun yapicaz
+        db.execute(
+            'UPDATE repairment SET status = "closed"\
+            WHERE id = ?', (request_id,)
+        )
+
+        db.commit()
+
+        db.execute(
+            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
+            WHERE status = "onWay" AND repairment_id = ?', (date.today(), request_id)
+        )
+
+        db.commit()
+
+
+    else:
+        return "Current status of the request is not applicable for this action!"
+
 
 @bp.route('/decision_renew', methods = ['GET','POST'])
 def decision_renew():
