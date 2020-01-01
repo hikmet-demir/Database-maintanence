@@ -127,9 +127,14 @@ def get_requests():
     requests =  db.execute(
         'SELECT * FROM repairment WHERE customer_id = ?', (g.user['id'],)
     ).fetchall()
-    # data = [[i[0]] for i in requests]
-
-    return render_template('customer/customer_view_requests.html', data = requests, size = len(requests) )
+    idd = [i[0] for i in requests]
+    status = [i[5] for i in requests]
+    data = {
+        "id": idd,
+        "status": status
+    }
+    #return data
+    return render_template('customer/customer_view_requests.html', data = data, size = len(status) )
 
 @bp.route('/get_complaints',methods =('GET','POST'))
 def get_complaints():
@@ -145,7 +150,7 @@ def get_complaints():
 @bp.route('/get_complaint_details',methods =('GET','POST'))
 def get_complaint_details():
     db = get_db()
-    complaint_id = request.args["complaints"][0]
+    complaint_id = request.args["complaints"][1]
 
     complaint_info =  db.execute(
             'SELECT c.problem, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.customer_id = ?', (g.user['id'],)
@@ -158,11 +163,10 @@ def get_complaint_details():
 def get_request_details():
     db = get_db()
     user_id = g.user['id']
-    request_id = request.args["requests"][0]
+    request_id = request.args["requests"]
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
-
     product_id = req["product_id"]
     req_status = req["status"]
     
