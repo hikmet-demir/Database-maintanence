@@ -240,7 +240,7 @@ def recievedTheProduct():
     product_id = req["product_id"]
     req_status = req["status"]
 
-    if status == "repairedItemShippedToCustomer"):
+    if status == "repairedItemShippedToCustomer":
         #statusu waiting for evaluation yapicaz
         # shippingi delivered yapicaz
         # recieve date yi simdiki zaman yapicaz
