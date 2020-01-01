@@ -18,7 +18,15 @@ def welcome():
             'SELECT * FROM repairment WHERE technician_id = ?', (g.user['id'],)
         ).fetchall()
 
-    return render_template('technician/technician_welcome.html',data=my_requests)
+    id = [[i[0]] for i in my_requests]
+    status = [[i[5]] for i in my_requests]
+    
+    data = {
+        "id" : id,
+        "status" : status
+    }
+
+    return render_template('technician/technician_welcome.html',data=data, size = len(id))
 
 
 @bp.route('/get_details')
