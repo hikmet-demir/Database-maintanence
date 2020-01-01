@@ -127,9 +127,9 @@ def get_requests():
     requests =  db.execute(
         'SELECT * FROM repairment WHERE customer_id = ?', (g.user['id'],)
     ).fetchall()
-    data = [[i[0]] for i in requests]
+    # data = [[i[0]] for i in requests]
 
-    return render_template('customer/customer_view_requests.html', data = data, size = len(data) )
+    return render_template('customer/customer_view_requests.html', data = requests, size = len(requests) )
 
 @bp.route('/get_complaints',methods =('GET','POST'))
 def get_complaints():
