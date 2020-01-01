@@ -94,29 +94,21 @@ def complete_request():
     problem = request.args['myTextBox']
     customer_id = g.user['id']
     status = "shippedToTechnician"
-
     db = get_db()
-
-
     technicians = db.execute(
             'SELECT id FROM technician'
         ).fetchall()
 
     ids = []
-    
     for id in technicians:
         ids.append(id[0])
-    print(ids)
     l = len(ids)
-
     index = randrange(l)
-
     db.execute(
             'INSERT INTO repairment (technician_id, product_id, customer_id, \
                 problem,status) VALUES (?, ?, ?, ?, ?)',
             (ids[index], product_id, customer_id, problem, status)
         )
-
     db.commit()
 
     repairment =  db.execute(
@@ -249,4 +241,16 @@ def see_preliminary_report():
         "prelim":prelim
     }
     return render_template('customer/customer_see_preliminary.html', data=data)
+
+@bp.route('/decision_renew', methods = ['GET','POST'])
+def decision_renew():
+    None
+
+@bp.route('/decision_return', methods = ['GET','POST'])
+def decision_return():
+    None
+
+@bp.route('decision_repair', methods = ['GET','POST'])
+def decision_repair():
+    None
 
