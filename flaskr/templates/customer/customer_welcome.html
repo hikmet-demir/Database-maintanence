@@ -40,8 +40,8 @@
   <form>
     <div class="form-group">
     <select class="form-control" name="products" size= {{ size }}>
-      {% for row in data %}
-              <option value={{row}}>{{  row  }}</option>
+      {% for index in range(size) %}
+              <option value={{data.id[index]}}>{{  data.model[index][0]  }}</option>
       {% endfor %}
     </select>
 
