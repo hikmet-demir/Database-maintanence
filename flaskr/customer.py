@@ -6,6 +6,7 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 import sys
 from datetime import date
+from random import randrange
 
 bp = Blueprint('customer', __name__, url_prefix='/customer')
 
@@ -92,11 +93,24 @@ def complete_request():
 
     db = get_db()
 
-    # SIMDILIK TEKNISYENI ELIMLE YERLESTIRDIM REPAIRMENT tablosu
+
+    technicians = db.execute(
+            'SELECT id FROM technician'
+        ).fetchall()
+
+    ids = []
+    
+    for id in technicians:
+        ids.append(id[0])
+    print(ids)
+    l = len(ids)
+
+    index = randrange(l)
+
     db.execute(
             'INSERT INTO repairment (technician_id, product_id, customer_id, \
                 problem,status) VALUES (?, ?, ?, ?, ?)',
-            (2, product_id, customer_id, problem, status)
+            (ids[index], product_id, customer_id, problem, status)
         )
 
     db.commit()
