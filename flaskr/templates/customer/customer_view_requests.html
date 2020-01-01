@@ -33,17 +33,10 @@
 
         <div class="row">
           <div class="col-sm-4">
-<<<<<<< HEAD
             <form action="/admin/getCustomers" class="form-group">
                 <select multiple class="form-control" id="exampleFormControlSelect2" height="80%;">
                   {% for row in data %}
-                          <option value={{row}}>{{  row.model  }}</option>
-=======
-            <form class="form-group">
-                <select multiple class="form-control" name="requests" size ={{ size }} id="exampleFormControlSelect2" height="80%;">
-                  {% for row in data %}
-                          <option value={{ row }}>{{  row  }}</option>
->>>>>>> a5767eb776ec5176573f56468c3fa73348939eda
+                          <option value={{row}}>{{  row  }}</option>
                   {% endfor %}
                 </select>
             <button type="submit" formaction="/customer/get_request_details">Get Details</button>
