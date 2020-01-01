@@ -22,9 +22,13 @@ def welcome():
     
     # outer brackets are required, it doesnt work without them somehow
     # thats why id's are shown in the bracets on the website
-    data = [[i[0]] for i in products]
-
-    return render_template('customer/customer_welcome.html', data = data, size = len(data))
+    id = [[i[0]] for i in products]
+    model = [[i[2]] for i in products]
+    data = {
+        "id": id,
+        "model": model
+    }
+    return render_template('customer/customer_welcome.html', data = data, size = len(model))
 
 
 @bp.route('/get_details',methods =('GET','POST'))
@@ -182,6 +186,33 @@ def get_request_details():
         "req_id":request_id
     }
     return render_template('customer/customer_request_details.html', data=data)
+
+@bp.route('/make_decision', methods=['GET','POST'])
+def make_decision():
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.args["requests"]
+    req =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+    product_id = req["product_id"]
+    #prelim = req["prelim"]
+    prelim = "This product has been examined and decided to return"
+    req =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+    product_id = req["product_id"]
+    req_status = req["status"]
+    
+    product = db.execute(
+        'SELECT * FROM product WHERE id = ?', (product_id,)
+    ).fetchone()
+    product_model = product["model"]
+    data = {
+        "name": product_model,
+        "prelim":prelim
+    }
+    return render_template('customer/customer_see_preliminary.html', data=data)
 
 @bp.route('/see_preliminary_report',methods=['GET','POST'])
 def see_preliminary_report():

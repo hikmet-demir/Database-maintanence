@@ -34,16 +34,6 @@
     Price: {{  data.req_id  }}<br>
     </p>
 
-<form action="{{ url_for('customer.see_preliminary_report') }}" method="POST">
-  <input type="hidden" name="req_id" value= "{{data.req_id}}" />
-  <button type="submit">See Preliminary Report</button>
-</form>
-<form action="/customer/see_detailed_report">
-  <button type="submit" href="/">See Detailed Report</button>
-</form>
-<form action="/customer/create_report">
-  <button type="submit" href="/">Create Report</button>
-</form>
 
 </body>
 </html>
