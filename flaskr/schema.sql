@@ -158,7 +158,14 @@ CHECK (current_status IN ("ongoing", "finished", "waiting")),
 CHECK (final_status IN ("positive", "negative"))
 );
 
+CREATE VIEW technician_count AS
+SELECT id, number
+FROM (SELECT technician_id AS id, count(*) AS number FROM repairment GROUP BY technician_id
+);
 
-
+CREATE VIEW assistant_count AS
+SELECT id, number
+FROM (SELECT assistant_count AS id, count(*) AS number FROM complaint GROUP BY customer_service_asisstant_id
+);
 
 
