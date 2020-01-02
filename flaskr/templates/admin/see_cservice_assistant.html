@@ -25,9 +25,10 @@
       <div class="container">
         <form>
           <div class="form-group">
+              <p>id, count</p>
           <select class="form-control" name="customers" size= {{ size }}>
             {% for index in range(size) %}
-                    <option value={{ data.id[index] }}>{{ data.name[index],data.complaint_num[index]  }}</option>
+                    <option value={{ data.id[index] }}>{{ data.id[index],data.number[index]  }}</option>
             {% endfor %}
           </select>
           </div>

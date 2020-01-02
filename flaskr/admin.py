@@ -34,11 +34,17 @@ def find_range():
             WHERE number >= ? AND number <= ?',(beginning,end)
             ).fetchall()
 
-    for technician in technicians:
-        print(technician[0])
-    
+    id = [[i[0]] for i in technicians]
+    number = [[i[1]] for i in technicians]
 
-    return  "asd"
+    data = {
+        "id": id,
+        "number": number
+    }
+
+
+    return render_template('admin/see_cservice_assistant.html', data = data, size = len(id)) 
+
 
 @bp.route('/find_customers',methods =('GET','POST'))
 def find_customers():
