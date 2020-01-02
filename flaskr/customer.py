@@ -20,7 +20,7 @@ def welcome():
     products =  db.execute(
             'SELECT * FROM product WHERE customer_id = ?', (g.user['id'],)
         ).fetchall()
-    
+
     # outer brackets are required, it doesnt work without them somehow
     # thats why id's are shown in the bracets on the website
     id = [[i[0]] for i in products]
@@ -40,7 +40,7 @@ def get_details():
     product =  db.execute(
             'SELECT * FROM product WHERE id = ?', (product_id,)
         ).fetchone()
-    
+
     id = product["id"]
     price = product["price"]
     model = product['model']
@@ -50,8 +50,8 @@ def get_details():
     cat_name = db.execute(
             'SELECT * FROM category WHERE id = ?', (cat_id,)
         ).fetchone()['cat_name']
-    
-    
+
+
     return render_template('customer/customer_get_product_details.html'
         ,id=product_id, price=price, model=model, Color=color,
         years_of_warranty=warranty, category_name=cat_name)
@@ -83,11 +83,11 @@ def create_request():
     if repairments_of_product is not None:
         for row in repairments_of_product:
             if row[5] != "closed":
-                return "There is a continuing request for this product, you cannot create a new one!"    
-    
+                return "There is a continuing request for this product, you cannot create a new one!"
+
     return render_template('customer/create_request.html',
         id=product_id, model=model, years_of_warranty=warranty)
-    
+
 @bp.route('/complete_request',methods =('GET','POST'))
 def complete_request():
     product_id = request.args['product_id']
@@ -117,7 +117,7 @@ def complete_request():
 
     repairment_id = repairment["id"]
 
-    delivery_date = today = date.today()
+    delivery_date = date.today()
 
     db.execute(
             'INSERT INTO shipping (delivery_date, repairment_id, customer_id, \
@@ -160,7 +160,7 @@ def get_complaints():
 @bp.route('/get_complaint_details',methods =('GET','POST'))
 def get_complaint_details():
     db = get_db()
-    complaint_id = request.args["complaints"][1]
+    complaint_id = request.args["complaints"]
 
     complaint_info =  db.execute(
             'SELECT c.problem, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.customer_id = ?', (g.user['id'],)
@@ -179,7 +179,7 @@ def get_request_details():
     ).fetchone()
     product_id = req["product_id"]
     req_status = req["status"]
-    
+
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
@@ -195,33 +195,41 @@ def get_request_details():
 
 @bp.route('/make_decision', methods=['GET','POST'])
 def make_decision():
+
     db = get_db()
     user_id = g.user['id']
     request_id = request.args["requests"]
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
+
+    status = req["status"]
+
+    if status != "waitingForCustomerDecision":
+        return "Current status of the request is not applicable for this action!"
+
     product_id = req["product_id"]
-    #prelim = req["prelim"]
-    prelim = "This product has been examined and decided to return"
+    prelim = req["prelim"]
+
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
     product_id = req["product_id"]
     req_status = req["status"]
-    
+
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
     product_model = product["model"]
     data = {
         "name": product_model,
-        "prelim":prelim
+        "prelim" : prelim
     }
     return render_template('customer/customer_see_preliminary.html', data=data)
 
-@bp.route('/see_preliminary_report',methods=['GET','POST'])
-def see_preliminary_report():
+
+@bp.route('/recievedTheProduct',methods=['GET','POST'])
+def recievedTheProduct():
     db = get_db()
     user_id = g.user['id']
     request_id = request.form["req_id"]
@@ -229,18 +237,110 @@ def see_preliminary_report():
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
 
+    status = req["status"]
     product_id = req["product_id"]
-    #prelim = req["prelim"]
-    prelim = "This product has been examined and decided to return"
-    product = db.execute(
-        'SELECT * FROM product WHERE id = ?', (product_id,)
-    ).fetchone()
-    product_model = product["model"]
+    req_status = req["status"]
+
+    if status == "repairedItemShippedToCustomer":
+        #statusu waiting for evaluation yapicaz
+        # shippingi delivered yapicaz
+        # recieve date yi simdiki zaman yapicaz
+
+        db.execute(
+            'UPDATE repairment SET status = "waitingForCustomerEvaluation"\
+            WHERE id = ?', (request_id,)
+        )
+
+        db.commit()
+
+        db.execute(
+            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
+            WHERE status = "onWay" AND repairment_id = ?', (date.today(), request_id)
+        )
+
+        db.commit()
+
+
+    elif status == "newItemShippedToCustomer":
+        # statusu closed yapicaz
+        # shippidi delivered yapciaz
+        # delivery datayi bugun yapicaz
+        db.execute(
+            'UPDATE repairment SET status = "closed"\
+            WHERE id = ?', (request_id,)
+        )
+
+        db.commit()
+
+        db.execute(
+            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
+            WHERE status = "onWay" AND repairment_id = ?', (date.today(), request_id)
+        )
+
+        db.commit()
+
+
+    else:
+        return "Current status of the request is not applicable for this action!"
+
+
+@bp.route('/customer_chat_page',methods=['GET','POST'])
+def customer_chat_page(complaint_MADAFAKA = None):
+    if complaint_MADAFAKA == None:
+        complaint_id = request.args["complaints"]
+    else:
+        complaint_id = complaint_MADAFAKA
+    user_id = g.user['id']
+
+    db = get_db()
+    requests =  db.execute(
+        'SELECT * FROM messages WHERE complaint_id = ?', (complaint_id,)
+    ).fetchall()
+    ##id|created|text|complaint_id|receiver_id|sender_id
+
+    idd = [i[0] for i in requests]
+    date = [i[1] for i in requests]
+    text = [i[2] for i in requests]
+    comp_id = [i[3] for i in requests]
+    rec_id = [i[4] for i in requests]
+    send_id = [i[5] for i in requests]
+
     data = {
-        "name": product_model,
-        "prelim":prelim
+        "id": idd,
+        "date": date,
+        "text": text,
+        "comp_id": comp_id,
+        "rec_id": rec_id,
+        "send_id": send_id
     }
-    return render_template('customer/customer_see_preliminary.html', data=data)
+    #return data
+    return render_template('customer/customer_chat_page.html', data = data, size = len(idd), complaint_id = complaint_id )
+
+@bp.route('/insert_message',methods=['GET','POST'])
+def insert_message():
+    comp_id = request.form['subject']
+    user_id = g.user['id']
+
+    message = str(request.form['message'])
+
+    db = get_db()
+
+    #receiver_id =  db.execute(
+    #    'SELECT receiver_id FROM messages WHERE complaint_id = ? and sender_id = ?', (comp_id,user_id,)
+    #).fetchone()[0]
+
+    receiver_id =  db.execute(
+        'SELECT customer_service_asisstant_id FROM complaint WHERE id = ?', (comp_id,)
+    ).fetchone()[0]
+
+
+    requests =  db.execute(
+        'INSERT INTO messages (text,complaint_id ,receiver_id, sender_id) VALUES (?, ?, ?, ?)' , (message,comp_id,receiver_id,user_id)
+    ).fetchall()
+
+    db.commit()
+
+    return customer_chat_page(comp_id)
 
 @bp.route('/decision_renew', methods = ['GET','POST'])
 def decision_renew():
@@ -253,4 +353,3 @@ def decision_return():
 @bp.route('decision_repair', methods = ['GET','POST'])
 def decision_repair():
     None
-
