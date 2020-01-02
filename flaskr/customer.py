@@ -519,7 +519,6 @@ def decision_repair():
     db = get_db()
     user_id = g.user['id']
     request_id = request.args["id"]
-<<<<<<< HEAD
 
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
@@ -538,6 +537,3 @@ def decision_repair():
     db.commit()
 
     return redirect(url_for('customer.get_requests'))
-=======
-    return request_id
->>>>>>> cb9a9efa4b16ee4405e06dffb831b48ddfcfac35

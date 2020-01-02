@@ -33,25 +33,49 @@ def find_range():
                 GROUP BY technician_id)\
             WHERE number >= ? AND number <= ?',(beginning,end)
             ).fetchall()
+
+    for technician in technicians:
+        print(technician[0])
     
 
     return  "asd"
 
-
 @bp.route('/find_customers',methods =('GET','POST'))
 def find_customers():
-    # letters = request.args['letters']
+    letters = request.args['letters']
 
-    # db = get_db()
+    db = get_db()
 
-    # customers = db.execute(
-    #         'SELECT id, number FROM ( \
-    #             SELECT technician_id as id, COUNT(*) as number\
-    #             FROM repairment\
-    #             GROUP BY technician_id)\
-    #         WHERE number >= ? AND number <= ?',(beginning,end)
-    #         ).fetchall()
-    return "ad"
+    customers = db.execute("select * from user where first_name like ? and\
+    user_type = 'customer'", (letters+'%',)
+    ).fetchall()
+
+    for customer in customers:
+        print(customer[0])
+
+    return  "asd"
+
+
+@bp.route('/find_technician',methods =('GET','POST'))
+def find_technician():
+    db = get_db()
+
+
+    technicians = db.execute('SELECT * \
+            FROM technician_count \
+            WHERE number = (\
+            SELECT max(number) FROM technician_count)'
+    ).fetchall()
+
+@bp.route('/find_assistant',methods =('GET','POST'))
+def find_assistant():
+    db = get_db()
+
+    assistants = db.execute('SELECT * \
+            FROM assistant_count \
+            WHERE number = (\
+            SELECT max(number) FROM assistant_count)'
+    ).fetchall()
 
 
 @bp.route('/add_product',methods =('GET','POST'))
