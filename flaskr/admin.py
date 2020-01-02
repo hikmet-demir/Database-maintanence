@@ -33,6 +33,8 @@ def find_range():
                 GROUP BY technician_id)\
             WHERE number >= ? AND number <= ?',(beginning,end)
             ).fetchall()
+        
+        
 
     id = [[i[0]] for i in technicians]
     number = [[i[1]] for i in technicians]
@@ -43,7 +45,7 @@ def find_range():
     }
 
 
-    return render_template('admin/see_cservice_assistant.html', data = data, size = len(id)) 
+    return render_template('admin/find_range.html', data = data, size = len(id)) 
 
 
 @bp.route('/find_customers',methods =('GET','POST'))
