@@ -120,9 +120,17 @@ def write_detailed_report():
         }
     return render_template('technician/detailed_report.html',data=data)
 
+@bp.route('/item_received_report')
+@login_required
+def item_received_report():
+    db = get_db()
+    repairment_id = request.args["request"]
 
-    
-    
+    db.execute("UPDATE repairment set status = 'waitingForPrelim' where id = ?", 
+    (repairment_id,))
+    db.commit()
+
+    return redirect(url_for("technician.welcome"))
 
 
 
