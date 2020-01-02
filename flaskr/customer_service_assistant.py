@@ -10,29 +10,40 @@ from flaskr.db import get_db
 bp = Blueprint('customer_service_assistant', __name__, url_prefix='/customer_service_assistant')
 
 @bp.route('/welcome',methods =('GET','POST'))
-def welcome():
+def welcome(choice = 0):    # (choice == zero) print my complaints : print unassigned complaints
     user_id = g.user['id']
-    #user_id = 99
+
     db = get_db()
 
-    #return str(user_id)
+    checked_rbs = []
 
-    complaints =  db.execute(
-            'SELECT * FROM complaint c, repairment r, product p WHERE c.customer_service_asisstant_id = ? and c.repairment_id = r.id and r.product_id = p.id', (user_id,)
-    ).fetchall()
+    if choice:
+        checked_rbs.append("checked")
+        checked_rbs.append("")
+        complaints =  db.execute(
+                'SELECT * FROM complaint c, repairment r, product p WHERE c.customer_service_asisstant_id IS NULL and c.repairment_id = r.id and r.product_id = p.id'
+        ).fetchall()
+    else:
+        checked_rbs.append("")
+        checked_rbs.append("checked")
+        complaints =  db.execute(
+                'SELECT * FROM complaint c, repairment r, product p WHERE c.customer_service_asisstant_id = ? and c.repairment_id = r.id and r.product_id = p.id', (user_id,)
+        ).fetchall()
 
     # outer brackets are required, it doesnt work without them somehow
     # thats why id's are shown in the bracets on the website
     id = [i["id"] for i in complaints]
     problem = [i["problem"] for i in complaints]
     model = [i["model"] for i in complaints]
+    current_status = [i["current_status"] for i in complaints]
     data = {
         "id": id,
         "problem": problem,
-        "model": model
+        "model": model,
+        "current_status": current_status
     }
     #return str(data)
-    return render_template('customer_service_assistant/customer_service_assistant_welcome.html', data = data, size = len(id))
+    return render_template('customer_service_assistant/customer_service_assistant_welcome.html', data = data, size = len(id), checked = checked_rbs)
 
 @bp.route('/customer_service_complaint_details',methods =('GET','POST'))
 def customer_service_complaint_details(comp_id = None):
@@ -112,10 +123,6 @@ def insert_message():
 
     db = get_db()
 
-    #receiver_id =  db.execute(
-    #    'SELECT receiver_id FROM messages WHERE complaint_id = ? and sender_id = ?', (comp_id,user_id,)
-    #).fetchone()[0]
-
     receiver_id =  db.execute(
         'SELECT customer_id FROM complaint WHERE id = ?', (comp_id,)
     ).fetchone()[0]
@@ -130,12 +137,8 @@ def insert_message():
 
 @bp.route('/customer_service_finalize',methods=['GET','POST'])
 def customer_service_finalize():
-
     final_status = request.form['final_status']
-
     comp_id = request.form['complaint_id']
-
-    #return (str(final_status) + str(comp_id))
 
     db = get_db()
 
@@ -146,3 +149,26 @@ def customer_service_finalize():
     db.commit()
 
     return customer_service_complaint_details(comp_id)
+
+@bp.route('/write_assigned',methods=['GET','POST'])
+def write_assigned():
+    #return "assigned"
+    return welcome(0)
+
+@bp.route('/write_unassigned',methods=['GET','POST'])
+def write_unassigned():
+    return welcome(1)
+
+@bp.route('/customer_service_manage',methods=['GET','POST'])
+def customer_service_manage():
+    comp_id = request.args['comp_id']
+    user_id = g.user['id']
+
+    db = get_db()
+
+    db.execute(
+        'UPDATE complaint SET customer_service_asisstant_id = ? WHERE id = ? and customer_service_asisstant_id IS NULL', (user_id,comp_id)
+    )
+    db.commit()
+
+    return welcome(0)
