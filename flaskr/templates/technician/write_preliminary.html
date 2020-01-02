@@ -36,18 +36,12 @@
   </p>
 </form>
 
-<form class="textboxsimge" >
-  <textarea name="myTextBox" cols="30" rows="5">
-    Write preliminary report here.
+<form class="textboxsimge" action = "/technician/submit_preliminary">
+  <textarea name="preliminary_text" cols="30" rows="5">Write preliminary report here.
   </textarea>
-</form>
-
-
-<form action="/submit_preliminary">
-
   <br><br>
-  <button type="submit" href="/">Submit Preliminary</button>
-
+  <button type="submit" name="repairment_id" value="{{data.repairment_id}}">Submit Preliminary</button>
 </form>
+
 </body>
 </html>

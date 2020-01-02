@@ -33,7 +33,7 @@ def welcome():
 def get_details():
     return render_template('technician/get_details.html')
 
-@bp.route('/write_preliminary_report')
+@bp.route('/write_preliminary_report',methods =('GET','POST'))
 @login_required
 def write_preliminary_report():
     db = get_db()
@@ -59,28 +59,60 @@ def write_preliminary_report():
         "model": model,
         "color": color,
         "warranty": years_of_warranty,
-        "category_id": category_id
-    }
+        "category_id": category_id,
+        "repairment_id": repairment_id
+        }
+    
+    return render_template('technician/write_preliminary.html', data = data)
 
-    return render_template('technician/write_preliminary.html   ', data = data)
-    return request.args["request"]
-    repairment =  db.execute(
-        'SELECT * FROM repairment WHERE id = ?', (technician_id,)
-    ).fetchone()
+
+@bp.route('/submit_preliminary',methods =('GET','POST'))
+def submit_preliminary():
+    preliminary_text =  request.args["preliminary_text"]
+    repairment_id = request.args["repairment_id"]
+    db = get_db()
+
+    db.execute("UPDATE repairment set prelim = ? where id = ?", 
+    (preliminary_text, repairment_id))
     db.commit()
-    print("REPAIRMENT =====>>>> ",repairment["product_id"])
-    return repairment["product_id"]
-    product_id = [[i[2]] for i in repairment]
-    return render_template('technician/write_preliminary', data = product_id)
-    print( product_id)
-    return product_id
-    return "asd"
+    return redirect(url_for("technician.welcome"))
 
 
 @bp.route('/write_detailed_report')
 @login_required
 def write_detailed_report():
-    return "asd"
+    db = get_db()
+    technician_id = g.user['id']
+    repairment_id = request.args["request"]
+    repairment =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (repairment_id,)
+    ).fetchone()
+    product_id = repairment["product_id"]
+    product =  db.execute(
+        'SELECT * FROM product WHERE id = ?', (product_id,)
+    ).fetchone()
+    parts_database = db.execute(
+        'SELECT * FROM parts WHERE product_id = ?', (product_id,)
+    ).fetchall()
+    parts = [[i[0] for i in parts_database]]
+    length = len(parts)
+    price = product["price"]
+    model = product["model"]
+    color = product["color"]
+    years_of_warranty = product["years_of_warranty"]
+    category_id = product["cat_id"]
+    data = {
+        "product_id": product_id,
+        "price": price,
+        "model": model,
+        "color": color,
+        "warranty": years_of_warranty,
+        "category_id": category_id,
+        "repairment_id": repairment_id,
+        "parts": parts,
+        "len": length
+        }
+    return render_template('technician/detailed_report.html',data=data)
 
 
     
