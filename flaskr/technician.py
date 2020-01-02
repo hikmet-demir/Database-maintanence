@@ -18,10 +18,8 @@ def welcome():
     my_requests =  db.execute(
             'SELECT * FROM repairment WHERE technician_id = ? AND status <> "closed"', (g.user['id'],)
         ).fetchall()
-
     id = [[i[0]] for i in my_requests]
     status = [[i[5]] for i in my_requests]
-    
     data = {
         "id" : id,
         "status" : status
@@ -32,7 +30,31 @@ def welcome():
 @bp.route('/get_details')
 @login_required
 def get_details():
-    return render_template('technician/get_details.html')
+    db = get_db()
+    technician_id = g.user['id']
+    repairment_id = request.args["request"]
+    repairment =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (repairment_id,)
+    ).fetchone()
+    product_id = repairment["product_id"]
+    product =  db.execute(
+        'SELECT * FROM product WHERE id = ? ', (product_id,)
+    ).fetchone()
+    product_price = product["price"]
+    product_color = product["color"]
+    product_model = product["model"]
+    warranty = product["years_of_warranty"]
+    cat_id = product["cat_id"]
+    
+    data = {
+        "product_id": product_id,
+        "price":product_price,
+        "model": product_model,
+        "color": product_color,
+        "warranty": warranty,
+        "cat_id": cat_id
+    }
+    return render_template('technician/get_details.html', data=data)
 
 @bp.route('/write_preliminary_report',methods =('GET','POST'))
 @login_required
@@ -182,8 +204,3 @@ def detailed_report_submit():
     db.commit()
 
     return redirect(url_for("technician.welcome"))
-
-
-
-    return request.args
-    return "vala"
