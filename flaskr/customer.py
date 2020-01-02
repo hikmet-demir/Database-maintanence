@@ -261,6 +261,8 @@ def customer_evaluate():
         "product_name": product_name
     }
     return render_template('customer/customer_evaluate.html',data=data)
+    # Request status closed =>> satisfactory 
+    #Request status complained ==>>create complaint
 
 @bp.route('/recievedTheProduct',methods=['GET','POST'])
 def recievedTheProduct():
