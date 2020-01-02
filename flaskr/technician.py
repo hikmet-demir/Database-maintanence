@@ -76,7 +76,6 @@ def submit_preliminary():
     (preliminary_text, repairment_id))
     db.commit()
 
-    db.execute("UPDATE rep")
     return redirect(url_for("technician.welcome"))
 
 
