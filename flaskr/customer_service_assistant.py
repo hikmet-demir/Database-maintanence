@@ -11,8 +11,8 @@ bp = Blueprint('customer_service_assistant', __name__, url_prefix='/customer_ser
 
 @bp.route('/welcome',methods =('GET','POST'))
 def welcome():
-    #user_id = g.user['id']
-    user_id = 99
+    user_id = g.user['id']
+    #user_id = 99
     db = get_db()
 
     #return str(user_id)
@@ -35,14 +35,14 @@ def welcome():
     return render_template('customer_service_assistant/customer_service_assistant_welcome.html', data = data, size = len(id))
 
 @bp.route('/customer_service_complaint_details',methods =('GET','POST'))
-def customer_service_complaint_details():
-    #return "selammm"
-    #user_id = g.user['id']
-    user_id = 99
+def customer_service_complaint_details(comp_id = None):
+
+    user_id = g.user['id']
+
     db = get_db()
 
-    comp_id = int(request.args["comp_id"])
-    #return str(user_id)
+    if comp_id == None:
+        comp_id = int(request.args["comp_id"])
 
     complaint_infos =  db.execute(
             'SELECT * FROM complaint WHERE id = ?', (comp_id,)
@@ -68,3 +68,81 @@ def customer_service_complaint_details():
         "customer_id": customer_id
     }
     return render_template('customer_service_assistant/customer_service_complaint_details.html', data = data)
+
+@bp.route('/customer_service_assistant_chat_page',methods =('GET','POST'))
+def customer_service_assistant_chat_page(complaint_MADAFAKA = None):
+    if complaint_MADAFAKA == None:
+        complaint_id = request.args["comp_id"]
+    else:
+        complaint_id = complaint_MADAFAKA
+    user_id = g.user['id']
+    #user_id = 99
+
+    db = get_db()
+    requests =  db.execute(
+        'SELECT * FROM messages WHERE complaint_id = ?', (complaint_id,)
+    ).fetchall()
+    ##id|created|text|complaint_id|receiver_id|sender_id
+
+    idd = [i[0] for i in requests]
+    date = [i[1] for i in requests]
+    text = [i[2] for i in requests]
+    comp_id = [i[3] for i in requests]
+    rec_id = [i[4] for i in requests]
+    send_id = [i[5] for i in requests]
+
+    data = {
+        "id": idd,
+        "date": date,
+        "text": text,
+        "comp_id": comp_id,
+        "rec_id": rec_id,
+        "send_id": send_id
+    }
+    #return data
+    return render_template('customer_service_assistant/customer_service_assistant_chat_page.html', data = data, size = len(idd), complaint_id = complaint_id )
+
+@bp.route('/insert_message',methods=['GET','POST'])
+def insert_message():
+    #return str(g.user['id'])
+    comp_id = request.form['subject']
+    user_id = g.user['id']
+
+    message = str(request.form['message'])
+
+    db = get_db()
+
+    #receiver_id =  db.execute(
+    #    'SELECT receiver_id FROM messages WHERE complaint_id = ? and sender_id = ?', (comp_id,user_id,)
+    #).fetchone()[0]
+
+    receiver_id =  db.execute(
+        'SELECT customer_id FROM complaint WHERE id = ?', (comp_id,)
+    ).fetchone()[0]
+
+    db.execute(
+        'INSERT INTO messages (text,complaint_id ,receiver_id, sender_id) VALUES (?, ?, ?, ?)' , (message,comp_id,receiver_id,user_id)
+    )
+
+    db.commit()
+
+    return customer_service_assistant_chat_page(comp_id)
+
+@bp.route('/customer_service_finalize',methods=['GET','POST'])
+def customer_service_finalize():
+
+    final_status = request.form['final_status']
+
+    comp_id = request.form['complaint_id']
+
+    #return (str(final_status) + str(comp_id))
+
+    db = get_db()
+
+    db.execute(
+        'UPDATE complaint SET final_status = ? WHERE id= ?', (final_status,comp_id)
+    )
+
+    db.commit()
+
+    return customer_service_complaint_details(comp_id)

@@ -19,6 +19,41 @@ def welcome():
     return render_template('admin/admin.html', data = customers) 
 
 
+@bp.route('/find_range',methods =('GET','POST'))
+def find_range():
+    beginning = int(request.args['beginning'])
+    end = int(request.args['end'])
+
+    db = get_db()
+
+    technicians = db.execute(
+            'SELECT id, number FROM ( \
+                SELECT technician_id as id, COUNT(*) as number\
+                FROM repairment\
+                GROUP BY technician_id)\
+            WHERE number >= ? AND number <= ?',(beginning,end)
+            ).fetchall()
+    
+
+    return  "asd"
+
+
+@bp.route('/find_customers',methods =('GET','POST'))
+def find_customers():
+    # letters = request.args['letters']
+
+    # db = get_db()
+
+    # customers = db.execute(
+    #         'SELECT id, number FROM ( \
+    #             SELECT technician_id as id, COUNT(*) as number\
+    #             FROM repairment\
+    #             GROUP BY technician_id)\
+    #         WHERE number >= ? AND number <= ?',(beginning,end)
+    #         ).fetchall()
+    return "ad"
+
+
 @bp.route('/add_product',methods =('GET','POST'))
 def add_product():
     customer_id = int(request.args['customer'])
