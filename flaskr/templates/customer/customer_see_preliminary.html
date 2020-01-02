@@ -36,10 +36,12 @@
           <textarea>  {{  data.prelim  }} </textarea>
     </p>
 
-<form >
-  <button type="submit" formaction="customer/decision_renew">Renew</button>
-  <button type="submit" formaction="customer/decision_return">Return</button>
-  <button type="submit" formaction="customer/decision_repair">Repair</button>
+<form name='decision'>
+
+  <button type="submit" name='id' value={{data.req_id}} formaction="decision_renew">Renew</button>
+  <button type="submit" name='id' value={{data.req_id}} formaction="decision_return">Return</button>
+  <button type="submit" name='id' value={{data.req_id}} formaction="decision_repair">Repair</button>
+
 </form>
 
 </body>

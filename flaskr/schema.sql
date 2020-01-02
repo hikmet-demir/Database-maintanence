@@ -85,6 +85,7 @@ years_of_warranty INTEGER NOT NULL,
 time_of_buying DATE NOT NULL,
 price FLOAT NOT NULL,
 cat_id INTEGER NOT NULL,
+status VARCHAR(14),
 FOREIGN KEY (cat_id) REFERENCES category(id) on delete cascade on update cascade,
 FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade,
 CHECK( model IN ( "phone", "tablet", "laptop"))
@@ -139,7 +140,7 @@ status VARCHAR(50) NOT NULL,
 FOREIGN KEY (repairment_id) REFERENCES repairment(id) on delete cascade on update cascade,
 FOREIGN KEY (customer_id) REFERENCES customer(id) on delete cascade on update cascade, 
 FOREIGN KEY (technician_id) REFERENCES technician(id) on delete cascade on update cascade, 
-CHECK (status IN( "shipped", "delivered", "onWay"))
+CHECK (status IN("delivered", "onWay"))
 );
 
 CREATE TABLE complaint (
