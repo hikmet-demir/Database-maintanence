@@ -161,3 +161,6 @@ html, body {
       .nav-link + .nav-masthead {
         margin-right: 5rem;
       }
+      .button {
+  width: 250px;
+}

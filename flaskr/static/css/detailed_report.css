@@ -16,3 +16,6 @@ hr {
 select.form-control[multiple], select.form-control[size]{
   height: 50%;
 }
+.button {
+width: 250px;
+}
