@@ -60,7 +60,6 @@ def find_customers():
 def find_technician():
     db = get_db()
 
-
     technicians = db.execute('SELECT * \
             FROM technician_count \
             WHERE number = (\
