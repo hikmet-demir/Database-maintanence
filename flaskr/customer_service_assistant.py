@@ -143,7 +143,7 @@ def customer_service_finalize():
     db = get_db()
 
     db.execute(
-        'UPDATE complaint SET final_status = ? WHERE id= ?', (final_status,comp_id)
+        'UPDATE complaint SET final_status = ?, current_status = "finished" WHERE id= ?', (final_status,comp_id)
     )
 
     db.commit()
@@ -167,7 +167,7 @@ def customer_service_manage():
     db = get_db()
 
     db.execute(
-        'UPDATE complaint SET customer_service_asisstant_id = ? WHERE id = ? and customer_service_asisstant_id IS NULL', (user_id,comp_id)
+        'UPDATE complaint SET customer_service_asisstant_id = ?, current_status = "ongoing" WHERE id = ? and customer_service_asisstant_id IS NULL', (user_id,comp_id)
     )
     db.commit()
 
