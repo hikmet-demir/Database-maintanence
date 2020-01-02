@@ -339,9 +339,8 @@ def recievedTheProduct():
         )
 
         db.commit()
+
         return redirect(url_for('customer.get_requests'))
-
-
     elif req_status == "newItemShippedToCustomer":
         # statusu closed yapicaz
         # shippidi delivered yapciaz

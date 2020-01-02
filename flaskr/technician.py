@@ -172,6 +172,7 @@ def detailed_report_submit():
     del dd["product_id"]
     del dd["repairment_id"]
     db = get_db()
+    print("=====> ", dd)
     for key in dd:
         if type(dd[key]) == type([]):    
             value = dd[key][0]
@@ -183,7 +184,7 @@ def detailed_report_submit():
             value = "changed"
         elif value == "Not Changed":
             value = "notChanged"
-
+        print("value ===>>", value)
         db.execute("INSERT into parts_repairment (repairment_id, part_id,product_id,status) values (?,?,?,?)",
         (repairment_id, key, product_id, value))
         db.commit()
