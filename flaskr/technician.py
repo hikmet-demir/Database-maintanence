@@ -72,9 +72,11 @@ def submit_preliminary():
     repairment_id = request.args["repairment_id"]
     db = get_db()
 
-    db.execute("UPDATE repairment set prelim = ? where id = ?", 
+    db.execute("UPDATE repairment set prelim = ?, status = 'waitingForCustomerDecision' where id = ?", 
     (preliminary_text, repairment_id))
     db.commit()
+
+    db.execute("UPDATE rep")
     return redirect(url_for("technician.welcome"))
 
 
