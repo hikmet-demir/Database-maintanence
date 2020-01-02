@@ -28,27 +28,28 @@
   <hr>
 
   <p class="bottom-up-three">
-    Product: {{  data.name  }}<br>
+    Product Id: {{  data.product_id  }}<br>
+    Product Model: {{  data.product_name  }}<br>
   </p>
 
   <div class="col-sm-4">
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Parts</th>
+          <th scope="col">Parts ID</th>
+          <th scope="col">Parts Name</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          {% for row in data %}
-            <td value={{row}}>{{  row.part  }}</td>
+          {% for index in range(data.len) %}
+          <tr>
+          <td value={{row}}>{{  data.part_ids[index] }}</td>
+          <td value={{row}}>{{  data.part_names[index] }}</td>
+          <td value={{row}}>{{  data.status[index]  }}</td>
+          </tr>
           {% endfor %}
-
-            {% for row in data %}
-            <td value={{row}}>{{  row.status  }}</td>
-            {% endfor %}
-
         </tr>
       </tbody>
     </table>
