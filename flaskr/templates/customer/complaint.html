@@ -28,22 +28,17 @@
     </nav>
     <hr>
 
-<form class="top" >
-  <p class="bottom-up-three">
-    Product ID: {{ data.product_id  }}<br>
-    Price: {{ data.price  }}<br>
-    Model: {{ data.model  }}<br>
-    Color: {{ data.color  }}<br>
-    Years of Warranty: {{  data.years_of_warranty }}<br>
-    Category ID: {{  data.category_id  }}<br>
-  </p>
-</form>
 
 <form class="textboxsimge" action = "/customer/submit_complaint">
   <textarea name="complaint_text" cols="30" rows="5">Write complaint here.
   </textarea>
   <br><br>
+<<<<<<< HEAD
   <button class = "button" type="submit" name="repairment_id" value="{{data.repairment_id}}">Submit Complaint</button>
+=======
+  <button type="submit" name="repairment_id" value="{{data.repairment_id}}">Submit Complaint</button>
+  <
+>>>>>>> 80027e449739931bee747dfa226422d2ea0b76c6
 </form>
 
 </body>

@@ -24,10 +24,11 @@
       <p>Technicians with max number of requests: </p><br>
       <div class="container">
         <form>
+            <p>Technician id, Count</p>
           <div class="form-group">
           <select class="form-control" name="customers" size= {{ size }}>
             {% for index in range(size) %}
-                    <option value={{ data.id[index] }}>{{ data.name[index],data.request_num[index]  }}</option>
+                    <option value={{ data.id[index] }}>{{ data.id[index],data.number[index]  }}</option>
             {% endfor %}
           </select>
           </div>
