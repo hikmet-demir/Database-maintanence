@@ -8,30 +8,25 @@
     </head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Customer Service Complaint Details</a>
+      <a class="navbar-brand" href="#">Chat Page</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-
       </nav>
       <hr>
 
     <p class="bottom-up-three">
-    ID: {{  data.id  }}<br>
-    Customer ID: {{  data.customer_id  }}<br>
-    Customer Service ID: {{  data.customer_service_asisstant_id  }}<br>
-    Repairment ID: {{  data.repairment_id  }}<br>
-    Problem: {{  data.problem  }}<br>
-    Current Status: {{  data.current_status  }}<br>
-    Final Status: {{  data.final_status  }}<br>
+      {% for index in range(size) %}
+              Message from {{data.send_id[index]}} to {{data.rec_id[index]}}: {{data.text[index]}}<br>
+      {% endfor %}
     </p>
     <hr>
-    <p>Finalize the complaint:</p>
-    <form action="/customer_service_assistant/customer_service_finalize" METHOD="POST">
-      <input type="radio" name="final_status" value="positive"> Complaint is positive.<br>
-      <input type="radio" name="final_status" value="negative"> Complaint is negative.<br>
-      <br>
-      <button name="complaint_id" type="submit" value="{{  data.id  }}">Finalize Complaint</button>
+    <form action="/customer_service_assistant/insert_message" METHOD="POST">
+      <input type="text" name="message" >
+      <br><br>
+      <button name="subject" type="submit" value="{{complaint_id}}">Send</button>
     </form>
+
+</body>
 </html>
