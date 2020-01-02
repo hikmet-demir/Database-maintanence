@@ -205,25 +205,23 @@ def make_decision():
     
     status = req["status"]
 
-    if status != "waitingForCustomerDecision":
-        return "Current status of the request is not applicable for this action!"
+    # if status != "waitingForCustomerDecision":
+    #     return "Current status of the request is not applicable for this action!"
 
     product_id = req["product_id"]
     prelim = req["prelim"]
-
-    req =  db.execute(
-        'SELECT * FROM repairment WHERE id = ?', (request_id,)
-    ).fetchone()
-    product_id = req["product_id"]
     
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
+
     product_model = product["model"]
     data = {
         "name": product_model,
-        "prelim" : prelim
+        "prelim" : prelim,
+        "req_id" : request_id
     }
+
     return render_template('customer/customer_see_preliminary.html', data=data)
 
 
@@ -231,7 +229,7 @@ def make_decision():
 def recievedTheProduct():
     db = get_db()
     user_id = g.user['id']
-    request_id = request.form["req_id"]
+    request_id = request.args["requests"]
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
@@ -285,7 +283,7 @@ def recievedTheProduct():
 
 @bp.route('/decision_renew', methods = ['GET','POST'])
 def decision_renew():
-    None
+    
 
 @bp.route('/decision_return', methods = ['GET','POST'])
 def decision_return():
