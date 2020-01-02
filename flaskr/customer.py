@@ -147,7 +147,6 @@ def get_requests():
 @bp.route('/get_complaints',methods =('GET','POST'))
 def get_complaints():
     db = get_db()
-
     complaints =  db.execute(
             'SELECT c.id, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.customer_id = ?', (g.user['id'],)
         ).fetchall()
@@ -160,7 +159,7 @@ def get_complaint_details():
     complaint_id = request.args["complaints"]
 
     complaint_info =  db.execute(
-            'SELECT c.problem, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.customer_id = ?', (g.user['id'],)
+            'SELECT c.problem, p.model FROM complaint c, repairment r, product p WHERE p.id == r.product_id and c.repairment_id == r.id and c.id = ?', (complaint_id,)
         ).fetchone()
 
     return render_template('customer/customer_complaint_details.html', data = complaint_info)
@@ -300,7 +299,7 @@ def submit_complaint():
     customer_id = g.user['id']
     repairment_id = request.args["repairment_id"]
     complaint_text = request.args["complaint_text"]
-    
+
     db.execute(
         'INSERT INTO complaint (problem, current_status, repairment_id, \
             customer_id) VALUES (?, ?, ?, ?)',
@@ -373,10 +372,10 @@ def customer_chat_page(complaint_MADAFAKA = None):
     user_id = g.user['id']
 
     db = get_db()
+
     requests =  db.execute(
         'SELECT * FROM messages WHERE complaint_id = ?', (complaint_id,)
     ).fetchall()
-    ##id|created|text|complaint_id|receiver_id|sender_id
 
     idd = [i[0] for i in requests]
     date = [i[1] for i in requests]
@@ -384,6 +383,15 @@ def customer_chat_page(complaint_MADAFAKA = None):
     comp_id = [i[3] for i in requests]
     rec_id = [i[4] for i in requests]
     send_id = [i[5] for i in requests]
+    rec_name = []
+    send_name = []
+    for i in rec_id:
+        if i == user_id:
+            rec_name.append("Me")
+            send_name.append("Customer Service Assistant")
+        else:
+            rec_name.append("Customer Service Assistant")
+            send_name.append("Me")
 
     data = {
         "id": idd,
@@ -391,8 +399,10 @@ def customer_chat_page(complaint_MADAFAKA = None):
         "text": text,
         "comp_id": comp_id,
         "rec_id": rec_id,
-        "send_id": send_id
-    }
+        "send_id": send_id,
+        "rec_name": rec_name,
+        "send_name": send_name
+        }
     #return data
     return render_template('customer/customer_chat_page.html', data = data, size = len(idd), complaint_id = complaint_id )
 
