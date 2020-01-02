@@ -230,7 +230,7 @@ def customer_evaluate():
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
     product_id = repairment["product_id"]
-    
+
     parts_repairment = db.execute(
         'SELECT * FROM parts_repairment WHERE product_id = ?', (product_id,)
     ).fetchall()
@@ -261,7 +261,7 @@ def customer_evaluate():
         "product_name": product_name
     }
     return render_template('customer/customer_evaluate.html',data=data)
-    # Request status closed =>> satisfactory 
+    # Request status closed =>> satisfactory
     #Request status complained ==>>create complaint
 
 @bp.route('/recievedTheProduct',methods=['GET','POST'])
@@ -289,7 +289,7 @@ def recievedTheProduct():
         db.commit()
 
         db.execute(
-            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
+            'UPDATE shipping SET receive_date = ? ,status = "delivered"\
             WHERE status = "delivered" AND repairment_id = ?', (date.today(), request_id)
         )
 
@@ -516,14 +516,14 @@ def decision_renew():
         )
 
         db.commit()
-    
+
     return redirect(url_for('customer.get_requests'))
 
 @bp.route('/decision_return', methods = ['GET','POST'])
 def decision_return():
     # change the status of product return
     # change the status of request to repairedItemShippedToCustomer
-    
+
     db = get_db()
     user_id = g.user['id']
     request_id = request.args["id"]
