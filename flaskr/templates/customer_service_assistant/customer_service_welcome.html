@@ -1,0 +1,62 @@
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <link rel='stylesheet' type='text/css'
+  href='http://fonts.googleapis.com/css?family=Spectral'>
+  <title>Maintenance Application System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="../../static/css/customer_service_welcome.css" rel="stylesheet">
+</head>
+<body>
+
+  <!--<p>Use the size attribute to specify the number of visible values.</p>
+  {% for row in data %}
+  <tr>
+  {% for d in row %}
+  <td>{{ d }}</td>
+  {% endfor %}
+</tr>
+{% endfor %}-->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Customer Service Welcome</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Ongoing Complaints</a>
+      </li>
+    </ul>
+  </nav>
+  <hr>
+
+
+<div class="container" >
+
+  <div class="row">
+    <div class="col-sm-4">
+      <form class="form-group">
+          <select multiple class="form-control" name="request" id="exampleFormControlSelect2" height="80%;">
+           {% for row in data %}
+                    <option value={{row}}>{{  row[0], row[5]  }}</option>
+            {% endfor %}
+          </select>
+
+          <div class="col-sm-4">
+            <button type="submit" formaction="/customer_service_assistant/cservice_complaint_details">Get Details</button>
+            <button type="submit" formaction="/customer_service_assistant/customer_service_chat">Go to Chat</button>
+            <button type="submit" formaction="/customer_service_assistant/customer_service_finalize">Manage</button>
+          </div>
+      </form>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css'
+              href='http://fonts.googleapis.com/css?family=Spectral'>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="../../static/css/see_max_customer.css" rel="stylesheet">
+    </head>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Admin</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </nav>
+      <hr>
+
+<p class="bottom-up-three">
+Technician with max. number of requests:<br>
+Technician ID: {{ id  }}<br>
+Technician name: {{ first_name  }} {{ last_name }}<br>
+Technician's profession : {{ profession }}<br>
+</p>
+
+</html>
