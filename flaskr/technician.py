@@ -92,13 +92,15 @@ def write_detailed_report():
         'SELECT * FROM repairment WHERE id = ?', (repairment_id,)
     ).fetchone()
     product_id = repairment["product_id"]
+    print("PRODUCT ID ====", product_id)
     product =  db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
     parts_database = db.execute(
         'SELECT * FROM parts WHERE product_id = ?', (product_id,)
     ).fetchall()
-    parts = [[i[0] for i in parts_database]]
+    parts = [[i[2] for i in parts_database]][0]
+    print(parts)
     length = len(parts)
     price = product["price"]
     model = product["model"]
@@ -118,9 +120,17 @@ def write_detailed_report():
         }
     return render_template('technician/detailed_report.html',data=data)
 
+@bp.route('/item_received_report')
+@login_required
+def item_received_report():
+    db = get_db()
+    repairment_id = request.args["request"]
 
-    
-    
+    db.execute("UPDATE repairment set status = 'waitingForPrelim' where id = ?", 
+    (repairment_id,))
+    db.commit()
+
+    return redirect(url_for("technician.welcome"))
 
 
 

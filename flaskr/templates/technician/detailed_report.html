@@ -52,14 +52,16 @@
           </thead>
           <tbody>
             <tr>
-                   {% for row in range(data.len) %}
-                            <td value={{row}}>{{  row  }}</td>
+                   {% for index in range(data.len) %}
+                   <tr>
+                      <td value={{row}}>{{  data.parts[index]  }}</td>
+                      <td><select class="form-control">
+                        <option>Changed</option>
+                        <option>Not Changed</option>
+                        <option>Fixed</option>
+                      </select></td></tr>
                     {% endfor %}
-              <td><select class="form-control">
-                <option>Changed</option>
-                <option>Not Changed</option>
-                <option>Fixed</option>
-              </select></td>
+
             </tr>
 
           </tbody>
