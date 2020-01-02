@@ -173,7 +173,10 @@ def detailed_report_submit():
     del dd["repairment_id"]
     db = get_db()
     for key in dd:
-        value = dd[key][0]
+        if type(dd[key]) == type([]):    
+            value = dd[key][0]
+        else:
+            value = dd[key]
         if value =="Fixed":
             value = "fixed"
         elif value == "Changed":

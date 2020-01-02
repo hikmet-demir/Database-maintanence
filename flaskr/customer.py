@@ -288,9 +288,26 @@ def create_complaint():
     )
     db.commit()
 
-    return render_template('customer/complaint.html')
-    None
+    data = {
+        "repairment_id": repairment_id
+    }
 
+    return render_template('customer/complaint.html', data = data)
+
+@bp.route('/submit_complaint')
+def submit_complaint():
+    db = get_db()
+    customer_id = g.user['id']
+    repairment_id = request.args["repairment_id"]
+    complaint_text = request.args["complaint_text"]
+    
+    db.execute(
+        'INSERT INTO complaint (problem, current_status, repairment_id, \
+            customer_id) VALUES (?, ?, ?, ?)',
+        (complaint_text, "waiting", repairment_id, customer_id)
+    )
+    db.commit()
+    return redirect(url_for('customer.get_requests'))
 
 @bp.route('/recievedTheProduct',methods=['GET','POST'])
 def recievedTheProduct():
