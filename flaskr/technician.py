@@ -172,6 +172,7 @@ def detailed_report_submit():
     del dd["product_id"]
     del dd["repairment_id"]
     db = get_db()
+    print("=====> ", dd)
     for key in dd:
         value = dd[key][0]
         if value =="Fixed":

@@ -289,14 +289,13 @@ def recievedTheProduct():
         db.commit()
 
         db.execute(
-            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
+            'UPDATE shipping SET receive_date = ? ,status = "delivered"\
             WHERE status = "delivered" AND repairment_id = ?', (date.today(), request_id)
         )
 
         db.commit()
+
         return redirect(url_for('customer.get_requests'))
-
-
     elif req_status == "newItemShippedToCustomer":
         # statusu closed yapicaz
         # shippidi delivered yapciaz
