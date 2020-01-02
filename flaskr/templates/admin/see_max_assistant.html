@@ -8,7 +8,7 @@
     </head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Admin Find the Customer</a>
+      <a class="navbar-brand" href="#">Admin Find Customers</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,14 +20,14 @@
         </ul>
       </nav>
       <hr>
-
-      <p>Customers with max number of complaints: </p><br>
+      <p>Assistants with max number of complaints: </p><br>
       <div class="container">
         <form>
+            <p>Assistant id, Count</p>
           <div class="form-group">
           <select class="form-control" name="customers" size= {{ size }}>
             {% for index in range(size) %}
-                    <option value={{ data.id[index] }}>{{ data.name[index],data.complaint_num[index]  }}</option>
+                    <option value={{ data.id[index] }}>{{ data.id[index],data.number[index]  }}</option>
             {% endfor %}
           </select>
           </div>

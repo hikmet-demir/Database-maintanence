@@ -33,8 +33,6 @@ def find_range():
                 GROUP BY technician_id)\
             WHERE number >= ? AND number <= ?',(beginning,end)
             ).fetchall()
-        
-        
 
     id = [[i[0]] for i in technicians]
     number = [[i[1]] for i in technicians]
@@ -58,10 +56,15 @@ def find_customers():
     user_type = 'customer'", (letters+'%',)
     ).fetchall()
 
-    for customer in customers:
-        print(customer[0])
+    id = [[i[0]] for i in customers]
+    name = [[i[4]] for i in customers]
 
-    return  "asd"
+    data = {
+        "id": id,
+        "name": name
+    }
+
+    return render_template('admin/find_customer_name.html', data = data, size = len(id))
 
 
 @bp.route('/find_technician',methods =('GET','POST'))
@@ -71,8 +74,18 @@ def find_technician():
     technicians = db.execute('SELECT * \
             FROM technician_count \
             WHERE number = (\
-            SELECT max(number) FROM technician_count)'
+            SELECT max(number) FROM technician_count GROUP BY id)'
     ).fetchall()
+
+    id = [[i[0]] for i in technicians]
+    number = [[i[1]] for i in technicians]
+
+    data = {
+        "id": id,
+        "number": number
+    }
+
+    return render_template('admin/see_max_technician.html', data = data, size = len(id))
 
 @bp.route('/find_assistant',methods =('GET','POST'))
 def find_assistant():
@@ -81,8 +94,18 @@ def find_assistant():
     assistants = db.execute('SELECT * \
             FROM assistant_count \
             WHERE number = (\
-            SELECT max(number) FROM assistant_count)'
+            SELECT max(number) FROM assistant_count GROUP BY id)'
     ).fetchall()
+
+    id = [[i[0]] for i in assistants]
+    number = [[i[1]] for i in assistants]
+
+    data = {
+        "id": id,
+        "number": number
+    }
+
+    return render_template('admin/see_max_assistant.html', data = data, size = len(id))
 
 
 @bp.route('/add_product',methods =('GET','POST'))
