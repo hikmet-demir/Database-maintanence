@@ -3,12 +3,12 @@
         <meta charset='utf-8'/>
         <link rel='stylesheet' type='text/css'
               href='http://fonts.googleapis.com/css?family=Spectral'>
-        <link href="../../static/css/customer_complaint_details.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="../../static/css/customer_get_product_details.css" rel="stylesheet">
     </head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Customer Service Complaint Details</a>
+      <a class="navbar-brand" href="#">Get Product Details</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -18,22 +18,23 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#">My Requests</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">My Complaints</a>
           </li>
         </ul>
       </nav>
       <hr>
 
-    <p class="bottom-up-three">
-    Product: {{  data.model  }}<br>
-    Customer Name: {{  data.customer_name  }}<br>
-    Problem: {{  data.problem  }}<br>
-    Current Status: {{  data.current_status  }}<br>
-    Final Status: {{  data.final_status  }}<br>
-    </p>
-    <p>Finalize the complaint:</p>
-    <input type="radio" name="complaint" value="positive"> Complaint is positive.<br>
-    <input type="radio" name="complaint" value="negative"> Complaint is negative.<br>
-    <button type="button" class="btn btn-secondary" formaction="/customer_service_assistant/customer_service_finalize";>Finalize Complaint</button>
+<p class="bottom-up-three">
+Product ID: {{ id  }}<br>
+Price: {{ price  }}<br>
+Model: {{ model  }}<br>
+Color: {{ Color  }}<br>
+Years of Warranty: {{  years_of_warranty }}<br>
+Category ID: {{  category_id}}<br>
+</p>
 
+</body>
 </html>

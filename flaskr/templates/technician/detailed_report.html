@@ -38,7 +38,7 @@
         Model: {{ model  }}<br>
         Color: {{ Color  }}<br>
         Years of Warranty: {{  years_of_warranty }}<br>
-        Category ID: {{  category_id}}<br>
+        Category ID: {{  category_id  }}<br>
         </p>
       </div>
       <div class="vl"></div>
@@ -55,7 +55,6 @@
                    {% for row in data %}
                             <td value={{row}}>{{  row  }}</td>
                     {% endfor %}
-              <td>Screen</td>
               <td><select class="form-control">
                 <option>Changed</option>
                 <option>Not Changed</option>
@@ -67,10 +66,5 @@
         </table>
         <button type="button" class="btn btn-secondary" style="margin-left:110px;">Submit</button>
       </div>
-
-
     </div>
-    <body>
-
-    </body>
     </html>
