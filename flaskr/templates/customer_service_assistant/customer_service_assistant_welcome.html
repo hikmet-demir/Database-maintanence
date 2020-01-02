@@ -8,16 +8,32 @@
   <link href="../../static/css/customer_service_welcome.css" rel="stylesheet">
 </head>
 <body>
+  <script type="text/javascript">
+    window.onload = function() {
 
-  <!--<p>Use the size attribute to specify the number of visible values.</p>
-  {% for row in data %}
-  <tr>
-  {% for d in row %}
-  <td>{{ d }}</td>
-  {% endfor %}
-</tr>
-{% endfor %}-->
+        var ex1 = document.getElementById('rb_1');
+        var ex2 = document.getElementById('rb_2');
 
+        ex1.onclick = handler1;
+        ex2.onclick = handler2;
+    }
+
+    function handler1() {
+        var form = document.getElementById("null_action_1");
+        form.submit();
+    }
+
+    function handler2() {
+        var form = document.getElementById("null_action_2");
+        form.submit();
+    }
+  </script>
+
+  <form id="null_action_2" action="/customer_service_assistant/write_unassigned">
+  </form>
+
+  <form id="null_action_1" action="/customer_service_assistant/write_assigned">
+  </form>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Customer Service Welcome</a>
@@ -35,14 +51,17 @@
       <form class="form-group">
           <select multiple class="form-control" name="comp_id" id="exampleFormControlSelect2" height="80%;">
             {% for index in range(size) %}
-                    <option value={{ data.id[index] }}>{{  data.id[index]  }} - {{  data.model[index]  }}</option>
+                    <option value={{ data.id[index] }}>{{  data.id[index]  }} - {{  data.model[index]  }} - {{  data.current_status[index]  }}</option>
             {% endfor %}
           </select>
-
+          <h5>Show:</h5>
+          <input type="radio" {{ checked[1] }} name="rb_value" id="rb_1"> Assigned to me<br>
+          <input type="radio" {{ checked[0] }} name="rb_value" id="rb_2"> Unassigned<br>
+          <br>
           <div class="col-sm-4">
             <button type="submit" formaction="/customer_service_assistant/customer_service_complaint_details">Get Details</button>
             <button type="submit" formaction="/customer_service_assistant/customer_service_assistant_chat_page">Go to Chat</button>
-            <button type="submit" formaction="/customer_service_assistant/customer_service_finalize">Manage</button>
+            <button type="submit" formaction="/customer_service_assistant/customer_service_manage">Manage</button>
           </div>
       </form>
     </div>
