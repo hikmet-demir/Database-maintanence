@@ -1,15 +1,17 @@
 <html>
+
 <head>
-  <meta charset='utf-8'/>
-  <link rel='stylesheet' type='text/css'
-  href='http://fonts.googleapis.com/css?family=Spectral'>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta charset='utf-8' />
+  <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Spectral'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="../../static/css/detailed_report.css" rel="stylesheet">
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Maintenance Application System</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -18,31 +20,32 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">My Assigned Products</a>
       </li>
     </ul>
-  </nav>
-  <hr>
+</nav>
+<hr>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-        <h2>Detailed Report</h2>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Detailed Report</h2>
     </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="bottom-up-three">
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <p class="bottom-up-three">
         Product ID: {{ data.product_id  }}<br>
         Price: {{ data.price  }}<br>
         Model: {{ data.model  }}<br>
         Color: {{ data.color  }}<br>
         Years of Warranty: {{  data.warranty }}<br>
         Category ID: {{  data.category_id}}<br>
-        </p>
-      </div>
-      <div class="vl"></div>
-      <div class="col-sm-4">
+      </p>
+    </div>
+    <div class="vl"></div>
+    <div class="col-sm-4">
+      <form action= "/technician/detailed_report_submit">
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -52,21 +55,28 @@
           </thead>
           <tbody>
             <tr>
-                   {% for index in range(data.len) %}
-                   <tr>
-                      <td value={{row}}>{{  data.parts[index]  }}</td>
-                      <td><select class="form-control">
-                        <option>Changed</option>
-                        <option>Not Changed</option>
-                        <option>Fixed</option>
-                      </select></td></tr>
-                    {% endfor %}
+              {% for index in range(data.len) %}
+            <tr>
+              <td value={{row}} >{{  data.parts[index]  }}</td>
+              <td>
+                <select class="form-control" name = {{ data.part_ids[index] }}>
+                  <option value="Changed">Changed</option>
+                  <option value="Not Changed">Not Changed</option>
+                  <option value="Fixed">Fixed</option>
+                </select>
+              </td>
+            </tr>
+            {% endfor %}
 
             </tr>
 
           </tbody>
         </table>
-        <button type="button" class="btn btn-secondary" style="margin-left:110px;">Submit</button>
-      </div>
+        <input type="hidden" name = "repairment_id" value="{{data.repairment_id}}" />
+        <input type="hidden" name = "product_id" value="{{data.product_id}}" />
+        <button type="submit" class="btn btn-secondary" style="margin-left:110px;">Submit</button>
+      </form>
     </div>
-    </html>
+  </div>
+
+</html>

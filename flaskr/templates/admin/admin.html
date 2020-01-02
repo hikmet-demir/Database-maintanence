@@ -14,7 +14,7 @@
       <div class="col-sm-4">
         <h3>Product to Add</h3>
         <form action="/admin/add_product" method="get" id="nameform">
-          <div class="col-sm-4">
+          <div class="col-sm-4" style="max-width: 100%;">
             <div class="form-group">
               <select multiple class="form-control" name="customer" id="exampleFormControlSelect2">
                 {% for row in data %}
@@ -32,20 +32,30 @@
           Category ID: <input class="form-control" type="text" name="cat_id"><br>
           <button type="submit" form="nameform" value="Add_Product">Add Product</button><br>
         </form>
-
-        <p> To see the customer service who has complaints within the range: <p>
-          Range Beginning: <input class="form-control" type="text" name="cat_id"><br>
-          Range End: <input class="form-control" type="text" name="cat_id"><br>
-          <button type="submit" form="c_service" formaction="see_c_service" value="Add_Product">See C_service_assistant</button><br>
+        <hr>
+        <form action="/admin/find_range">
+          <p> To see the customer service who has complaints within the range:</p>
+          Range Beginning: <input class="form-control" type="text" name="beginning"><br>
+          Range End: <input class="form-control" type="text" name="end"><br>
+          <input type="submit" value="Find">
+        </form>
+        <hr>
+        <form action="/admin/find_customers">
           <p> To see all customers beginning with letters: <p>
-            <input class="form-control" type="text" name="letters"><br>
-            <button type="submit" form="see_c_service" formaction="get_customers_within_range" value="Add_Product">Find Customers</button><br>
-            <p> To see the technician with max number of requests: <p>
-              <button type="submit" form="max_technician" formaction="see_max_technician" value="Add_Product">See Max. Technician</button><br>
-              <p> To see the customer with max number of complaints: <p>
-                <button type="submit" form="max_customer" formaction="see_max_customer"value="Add_Product">See Max. Customer</button>
-
-
+          <input class="form-control" type="text" name="letters"><br>
+          <input type="submit" value="Find">
+        </form>
+        <hr>
+        <form action="/admin/find_technician">
+          <p> To see the technician with max number of requests: <p>
+          <input type="submit" name="max_technician" value="See Max. Technician"><br>
+        </form>
+        <hr>
+        <form action="/admin/find_assistant">
+          <p> To see the customer with max number of complaints: <p>
+          <input type="submit" name="max_assistant" value="See Max. Assistant"><br>
+        </form>
+        <hr>
               </div>
             </div>
           </div>
