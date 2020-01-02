@@ -207,7 +207,7 @@ def make_decision():
 
     product_id = req["product_id"]
     prelim = req["prelim"]
-    
+
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
@@ -265,7 +265,7 @@ def recievedTheProduct():
             WHERE id = ?', (request_id,)
         )
 
-        db.commit() 
+        db.commit()
 
         db.execute(
             'UPDATE shipping SET receive_date = ? ,status = "delivered"\
@@ -329,9 +329,9 @@ def insert_message():
     ).fetchone()[0]
 
 
-    requests =  db.execute(
+    db.execute(
         'INSERT INTO messages (text,complaint_id ,receiver_id, sender_id) VALUES (?, ?, ?, ?)' , (message,comp_id,receiver_id,user_id)
-    ).fetchall()
+    )
 
     db.commit()
 
@@ -396,7 +396,7 @@ def decision_renew():
         )
 
     db.commit()
-    
+
     return redirect(url_for('customer.get_requests'))
 
 @bp.route('/decision_return', methods = ['GET','POST'])
@@ -412,4 +412,3 @@ def decision_repair():
     user_id = g.user['id']
     request_id = request.args["id"]
     return request_id
-
