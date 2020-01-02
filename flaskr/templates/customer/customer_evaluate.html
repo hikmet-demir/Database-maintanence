@@ -1,45 +1,63 @@
 <html>
-    <head>
-        <meta charset='utf-8'/>
-        <link rel='stylesheet' type='text/css'
-              href='http://fonts.googleapis.com/css?family=Spectral'>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="../../static/css/customer_evaluate.css" rel="stylesheet">
-    </head>
+<head>
+  <meta charset='utf-8'/>
+  <link rel='stylesheet' type='text/css'
+  href='http://fonts.googleapis.com/css?family=Spectral'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="../../static/css/customer_evaluate.css" rel="stylesheet">
+</head>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">See Detailed Report</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Requests</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Complaints</a>
-          </li>
-        </ul>
-      </nav>
-      <hr>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">See Detailed Report</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Complaints</a>
+      </li>
+    </ul>
+  </nav>
+  <hr>
 
-    <p class="bottom-up-three">
+  <p class="bottom-up-three">
     Product: {{  data.name  }}<br>
-    </p>
+  </p>
 
-    <p>
-          <label>Detailed Report</label>
-          <textarea>  {{  data.detailed_report  }} </textarea>
-    </p>
+  <div class="col-sm-4">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Parts</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for row in data %}
+            <td value={{row}}>{{  row.part  }}</td>
+          {% endfor %}
 
-<form action="/customer/customer_request_details">
-  <button type="submit" href="/">Satisfactory</button>
-  <button type="submit" form="nameform" formaction="/customer/customer_evaluate" href="/">Create Complaint</button>
+            {% for row in data %}
+            <td value={{row}}>{{  row.status  }}</td>
+            {% endfor %}
 
-</form>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-</html>
+  <form action="/customer/customer_request_details">
+    <button type="submit" href="/">Satisfactory</button>
+    <button type="submit" form="nameform" formaction="/customer/customer_evaluate" href="/">Create Complaint</button>
+
+  </form>
+
+  </html>
