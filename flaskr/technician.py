@@ -92,13 +92,15 @@ def write_detailed_report():
         'SELECT * FROM repairment WHERE id = ?', (repairment_id,)
     ).fetchone()
     product_id = repairment["product_id"]
+    print("PRODUCT ID ====", product_id)
     product =  db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
     parts_database = db.execute(
         'SELECT * FROM parts WHERE product_id = ?', (product_id,)
     ).fetchall()
-    parts = [[i[0] for i in parts_database]]
+    parts = [[i[2] for i in parts_database]][0]
+    print(parts)
     length = len(parts)
     price = product["price"]
     model = product["model"]
