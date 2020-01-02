@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' type='text/css'
+              href='http://fonts.googleapis.com/css?family=Spectral'>
+        <title>Maintenance Application System</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="../../static/css/complaint.css" rel="stylesheet">
+    </head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Customer Complaint</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">My Requests</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">My Complaints</a>
+        </li>
+      </ul>
+    </nav>
+    <hr>
+
+<form class="top" >
+  <p class="bottom-up-three">
+    Product ID: {{ data.product_id  }}<br>
+    Price: {{ data.price  }}<br>
+    Model: {{ data.model  }}<br>
+    Color: {{ data.color  }}<br>
+    Years of Warranty: {{  data.years_of_warranty }}<br>
+    Category ID: {{  data.category_id  }}<br>
+  </p>
+</form>
+
+<form class="textboxsimge" action = "/customer/submit_complaint">
+  <textarea name="complaint_text" cols="30" rows="5">Write complaint here.
+  </textarea>
+  <br><br>
+  <button type="submit" name="repairment_id" value="{{data.repairment_id}}">Submit Complaint</button>
+</form>
+
+</body>
+</html>
