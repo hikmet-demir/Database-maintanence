@@ -43,6 +43,9 @@ def write_preliminary_report():
         'SELECT * FROM repairment WHERE id = ?', (repairment_id,)
     ).fetchone()
 
+    if repairment["status"] != "waitingForPrelim":
+        return "Current status of the request is not applicable for this action"
+
     product_id = repairment["product_id"]
     product =  db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
