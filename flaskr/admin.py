@@ -33,8 +33,8 @@ def add_product():
     db = get_db()
 
     db.execute(
-        'INSERT INTO product (customer_id,model,color,years_of_warranty,time_of_buying,price,cat_id)\
-        VALUES (?,?,?,?,?,?,?)', (customer_id,product_model,product_color,product_warranty,\
+        'INSERT INTO product (customer_id,model,color,years_of_warranty,time_of_buying,price,cat_id, status)\
+        VALUES (?,?,?,?,?,?,?, "exists")', (customer_id,product_model,product_color,product_warranty,\
             product_time_of_buying, product_price, product_cat)
     )
 

@@ -15,7 +15,7 @@ def welcome():
     db = get_db()
 
     my_requests =  db.execute(
-            'SELECT * FROM repairment WHERE technician_id = ?', (g.user['id'],)
+            'SELECT * FROM repairment WHERE technician_id = ? AND status <> "closed"', (g.user['id'],)
         ).fetchall()
 
     id = [[i[0]] for i in my_requests]
