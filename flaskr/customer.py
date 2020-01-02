@@ -221,6 +221,46 @@ def make_decision():
 
     return render_template('customer/customer_see_preliminary.html', data=data)
 
+@bp.route('/customer_evaluate', methods=['GET','POST'])
+def customer_evaluate():
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.args["requests"]
+    repairment =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+    product_id = repairment["product_id"]
+    
+    parts_repairment = db.execute(
+        'SELECT * FROM parts_repairment WHERE product_id = ?', (product_id,)
+    ).fetchall()
+
+    product = db.execute(
+        'SELECT * FROM product WHERE id = ?', (product_id,)
+    ).fetchone()
+    product_name = product["model"]
+    statuses = [[i[3] for i in parts_repairment]][0]
+    part_ids = [[i[1] for i in parts_repairment]][0]
+
+    part_names = []
+    for ids in part_ids:
+        parts = db.execute(
+        'SELECT * FROM parts WHERE id = ?', (ids,)
+        ).fetchone()
+
+        part_name = parts["name"]
+        part_names.append(part_name)
+
+    length = len(statuses)
+    data = {
+        "product_id": product_id,
+        "status": statuses,
+        "part_names": part_names,
+        "part_ids": part_ids,
+        "len": length,
+        "product_name": product_name
+    }
+    return render_template('customer/customer_evaluate.html',data=data)
 
 @bp.route('/recievedTheProduct',methods=['GET','POST'])
 def recievedTheProduct():
@@ -234,8 +274,7 @@ def recievedTheProduct():
     status = req["status"]
     product_id = req["product_id"]
     req_status = req["status"]
-
-    if status == "repairedItemShippedToCustomer":
+    if req_status == "repairedItemShippedToCustomer":
         #statusu waiting for evaluation yapicaz
         # shippingi delivered yapicaz
         # recieve date yi simdiki zaman yapicaz
@@ -256,7 +295,7 @@ def recievedTheProduct():
         return redirect(url_for('customer.get_requests'))
 
 
-    elif status == "newItemShippedToCustomer":
+    elif req_status == "newItemShippedToCustomer":
         # statusu closed yapicaz
         # shippidi delivered yapciaz
         # delivery datayi bugun yapicaz
@@ -519,7 +558,6 @@ def decision_repair():
     db = get_db()
     user_id = g.user['id']
     request_id = request.args["id"]
-<<<<<<< HEAD
 
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
@@ -538,6 +576,3 @@ def decision_repair():
     db.commit()
 
     return redirect(url_for('customer.get_requests'))
-=======
-    return request_id
->>>>>>> cb9a9efa4b16ee4405e06dffb831b48ddfcfac35
