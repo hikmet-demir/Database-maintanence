@@ -26,13 +26,13 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
         return render_template('index.html', index=1)
-    
+
     from . import db
     db.init_app(app)
 
     from . import auth
     app.register_blueprint(auth.bp)
-    
+
     from . import customer
     app.register_blueprint(customer.bp)
 
@@ -41,6 +41,8 @@ def create_app(test_config=None):
 
     from . import admin
     app.register_blueprint(admin.bp)
-    
-    return app
 
+    from . import customer_service_assistant
+    app.register_blueprint(customer_service_assistant.bp)
+
+    return app

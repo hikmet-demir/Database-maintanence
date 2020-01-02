@@ -31,7 +31,7 @@ def register_customer():
 
         db = get_db()
         error = None
-        
+
 
         if not username:
             error = 'Username is required.'
@@ -96,10 +96,10 @@ def register_customer_service_assistant():
         department = request.form['department']
         experience = request.form['years_of_experience']
         user_type = 'asisstant'
-        
+
         db = get_db()
         error = None
-        
+
 
         if not username:
             error = 'Username is required.'
@@ -176,10 +176,10 @@ def register_technician():
         experience = request.form['years_of_experince']
         profession = request.form['profession']
         user_type = 'technician'
-        
+
         db = get_db()
         error = None
-        
+
 
         if not username:
             error = 'Username is required.'
@@ -273,10 +273,11 @@ def login():
 
             elif user_type == "technician":
                 return redirect(url_for('technician.welcome'))
+
             elif user_type == "asisstant":
-                return redirect(url_for('asisstant.welcome'))
-    
-                
+                return redirect(url_for('customer_service_assistant.welcome'))
+
+
 
         flash(error)
 
