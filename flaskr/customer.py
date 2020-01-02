@@ -394,21 +394,150 @@ def decision_renew():
                 technician_id, status) VALUES (?, ?, ?, ?, ?)',
             (date.today(), request_id, customer_id, technician_id, "onWay")
         )
+    db.commit()
+
+    # get the id of the new product
+    new_product =  db.execute(
+            'SELECT * FROM product WHERE customer_id = ? AND model = ? AND color = ? AND years_of_warranty = ? AND \
+            time_of_buying = ? AND price = ? AND cat_id = ? AND status = "exists"', \
+            (old_product['customer_id'], old_product['model'], old_product['color'],\
+            old_product['years_of_warranty'], date.today(), old_product['price'], old_product['cat_id'])
+        ).fetchone()
+
+    size =  db.execute(
+            'SELECT COUNT(*) FROM parts'
+        ).fetchone()[0]
+
+    if old_product['model'] == "phone":
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 1, new_product[0], "screen")
+        )
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 2, new_product[0], "battery")
+        )
+
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 3, new_product[0], "CPU")
+        )
+
+        db.commit()
+    elif old_product['model'] == "tablet":
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 1, new_product[0], "screen")
+        )
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 2, new_product[0], "battery")
+        )
+
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 3, new_product[0], "CPU")
+        )
+
+        db.commit()
+    elif old_product['model'] == "laptop":
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 1, new_product[0], "screen")
+        )
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 2, new_product[0], "battery")
+        )
+
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 3, new_product[0], "CPU")
+        )
+
+        db.commit()
+
+        db.execute(
+            'INSERT INTO parts (id, product_id, name) VALUES (?, ?, ?)',
+            (size + 4, new_product[0], "GPU")
+        )
+
+        db.commit()
+    
+    return redirect(url_for('customer.get_requests'))
+
+@bp.route('/decision_return', methods = ['GET','POST'])
+def decision_return():
+    # change the status of product return
+    # change the status of request to repairedItemShippedToCustomer
+    
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.args["id"]
+
+    req =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+
+    product_id = req["product_id"]
+    customer_id = req["customer_id"]
+    req_status = req["status"]
+    technician_id = req["technician_id"]
+
+    # update request status
+    db.execute(
+        'UPDATE repairment SET status = "closed" WHERE id = ?', (request_id,)
+    ).fetchone()
+
+    db.commit()
+
+    # update the product status
+    db.execute(
+        'UPDATE product SET status = "return" WHERE id = ?', (product_id,)
+    ).fetchone()
 
     db.commit()
 
     return redirect(url_for('customer.get_requests'))
 
-@bp.route('/decision_return', methods = ['GET','POST'])
-def decision_return():
-    db = get_db()
-    user_id = g.user['id']
-    request_id = request.args["id"]
-    return request_id
 
 @bp.route('decision_repair', methods = ['GET','POST'])
 def decision_repair():
+    # change the status of request
     db = get_db()
     user_id = g.user['id']
     request_id = request.args["id"]
+<<<<<<< HEAD
+
+    req =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+
+    product_id = req["product_id"]
+    customer_id = req["customer_id"]
+    req_status = req["status"]
+    technician_id = req["technician_id"]
+
+    # update request status
+    db.execute(
+        'UPDATE repairment SET status = "waitingForDetailedReport" WHERE id = ?', (request_id,)
+    ).fetchone()
+
+    db.commit()
+
+    return redirect(url_for('customer.get_requests'))
+=======
     return request_id
+>>>>>>> cb9a9efa4b16ee4405e06dffb831b48ddfcfac35
