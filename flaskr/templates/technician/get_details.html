@@ -17,23 +17,17 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Requests</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Complaints</a>
-          </li>
         </ul>
       </nav>
       <hr>
 
 <p class="bottom-up-three">
-Product ID: {{ id  }}<br>
-Price: {{ price  }}<br>
-Model: {{ model  }}<br>
-Color: {{ Color  }}<br>
-Years of Warranty: {{  years_of_warranty }}<br>
-Category ID: {{  category_id}}<br>
+Product ID: {{ data.product_id  }}<br>
+Price: {{ data.price  }}<br>
+Model: {{ data.model  }}<br>
+Color: {{ data.color  }}<br>
+Years of Warranty: {{  data.warranty }}<br>
+Category ID: {{  data.cat_id}}<br>
 </p>
 
 </body>
