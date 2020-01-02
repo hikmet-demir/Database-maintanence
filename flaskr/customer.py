@@ -6,6 +6,7 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 import sys
 from datetime import date
+from random import randrange
 
 bp = Blueprint('customer', __name__, url_prefix='/customer')
 
@@ -93,16 +94,21 @@ def complete_request():
     problem = request.args['myTextBox']
     customer_id = g.user['id']
     status = "shippedToTechnician"
-
     db = get_db()
+    technicians = db.execute(
+            'SELECT id FROM technician'
+        ).fetchall()
 
-    # SIMDILIK TEKNISYENI ELIMLE YERLESTIRDIM REPAIRMENT tablosu
+    ids = []
+    for id in technicians:
+        ids.append(id[0])
+    l = len(ids)
+    index = randrange(l)
     db.execute(
             'INSERT INTO repairment (technician_id, product_id, customer_id, \
                 problem,status) VALUES (?, ?, ?, ?, ?)',
-            (2, product_id, customer_id, problem, status)
+            (ids[index], product_id, customer_id, problem, status)
         )
-
     db.commit()
 
     repairment =  db.execute(
@@ -236,6 +242,7 @@ def see_preliminary_report():
     }
     return render_template('customer/customer_see_preliminary.html', data=data)
 
+<<<<<<< HEAD
 @bp.route('/customer_chat_page',methods=['GET','POST'])
 def customer_chat_page(complaint_MADAFAKA = None):
     if complaint_MADAFAKA == None:
@@ -293,3 +300,17 @@ def insert_message():
     db.commit()
 
     return customer_chat_page(comp_id)
+=======
+@bp.route('/decision_renew', methods = ['GET','POST'])
+def decision_renew():
+    None
+
+@bp.route('/decision_return', methods = ['GET','POST'])
+def decision_return():
+    None
+
+@bp.route('decision_repair', methods = ['GET','POST'])
+def decision_repair():
+    None
+
+>>>>>>> e1e254bfa8593859d4170b5f83da0bc6bb7bb6ba

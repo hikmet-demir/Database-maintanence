@@ -43,16 +43,16 @@
     <div class="col-sm-4">
       <form action="/admin/getCustomers" class="form-group">
           <select multiple class="form-control" name="request" id="exampleFormControlSelect2" height="80%;">
-           {% for row in data %}
-                    <option value={{row}}>{{  row[0], row[5]  }}</option>
+           {% for index in range(size) %}
+                    <option value={{data.id[index][0]}}>{{  data.id[index][0], data.status[index][0]  }}</option>
             {% endfor %}
           </select>
 
           <div class="col-sm-4">
             <button type="submit" formaction="/technician/get_details">Get Details</button>
-            <button type="submit" formaction="/technician/write_preliminary">Write Preliminary</button>
-            <button type="submit" formaction="/technician/write_detailed">Write Detailed Report</button>
-            <button type="submit" formaction="/technician/item_received">Received the Item</button>
+            <button type="submit" formaction="/technician/write_preliminary_report">Write Preliminary</button>
+            <button type="submit" formaction="/technician/write_detailed_report">Write Detailed Report</button>
+            <button type="submit" formaction="/technician/item_received_report">Received the Item</button>
           </div>
       </form>
     </div>

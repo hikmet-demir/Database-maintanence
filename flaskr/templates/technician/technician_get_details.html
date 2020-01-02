@@ -3,12 +3,12 @@
         <meta charset='utf-8'/>
         <link rel='stylesheet' type='text/css'
               href='http://fonts.googleapis.com/css?family=Spectral'>
-        <link href="../../static/css/customer_complaint_details.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="../../static/css/customer_request_details.css" rel="stylesheet">
+        <title>Maintenance Application System</title>
     </head>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Customer Service Complaint Details</a>
+      <a class="navbar-brand" href="#">Technician Get Details</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,19 +17,21 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Complaints</a>
-          </li>
         </ul>
       </nav>
       <hr>
 
     <p class="bottom-up-three">
-    Product: {{  data.model  }}<br>
-    Customer Name: {{  data.customer_name  }}<br>
+    Customer: {{  data.customer_name  }}<br>
+    Product: {{  data.name  }}<br>
+    Status: {{  data.status  }}<br>
+    Price: {{  data.price  }}<br>
     Problem: {{  data.problem  }}<br>
-    Current Status: {{  data.current_status  }}<br>
-    Final Status: {{  data.final_status  }}<br>
+    Demand: {{  data.demand  }}<br>
+    Satisfaction: {{  data.satisfaction  }}<br>
+
     </p>
 
+
+</body>
 </html>
