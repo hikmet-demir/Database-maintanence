@@ -18,7 +18,7 @@ def welcome():
     db = get_db()
 
     products =  db.execute(
-            'SELECT * FROM product WHERE customer_id = ?', (g.user['id'],)
+            "SELECT * FROM product WHERE customer_id = ? AND status != ?", (g.user['id'],"return")
         ).fetchall()
 
     # outer brackets are required, it doesnt work without them somehow
@@ -130,25 +130,22 @@ def complete_request():
 
 @bp.route('/get_requests',methods =('GET','POST'))
 def get_requests():
-    # db = get_db()
     user_id = g.user['id']
 
     db = get_db()
     requests =  db.execute(
         'SELECT * FROM repairment WHERE customer_id = ?', (g.user['id'],)
     ).fetchall()
-    idd = [i[0] for i in requests]
+    id = [i[0] for i in requests]
     status = [i[5] for i in requests]
     data = {
-        "id": idd,
+        "id": id,
         "status": status
     }
-    #return data
     return render_template('customer/customer_view_requests.html', data = data, size = len(status) )
 
 @bp.route('/get_complaints',methods =('GET','POST'))
 def get_complaints():
-    # db = get_db()
     db = get_db()
 
     complaints =  db.execute(
@@ -210,21 +207,18 @@ def make_decision():
 
     product_id = req["product_id"]
     prelim = req["prelim"]
-
-    req =  db.execute(
-        'SELECT * FROM repairment WHERE id = ?', (request_id,)
-    ).fetchone()
-    product_id = req["product_id"]
-    req_status = req["status"]
-
+    
     product = db.execute(
         'SELECT * FROM product WHERE id = ?', (product_id,)
     ).fetchone()
+
     product_model = product["model"]
     data = {
         "name": product_model,
-        "prelim" : prelim
+        "prelim" : prelim,
+        "req_id" : request_id
     }
+
     return render_template('customer/customer_see_preliminary.html', data=data)
 
 
@@ -232,7 +226,7 @@ def make_decision():
 def recievedTheProduct():
     db = get_db()
     user_id = g.user['id']
-    request_id = request.form["req_id"]
+    request_id = request.args["requests"]
     req =  db.execute(
         'SELECT * FROM repairment WHERE id = ?', (request_id,)
     ).fetchone()
@@ -255,10 +249,11 @@ def recievedTheProduct():
 
         db.execute(
             'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
-            WHERE status = "onWay" AND repairment_id = ?', (date.today(), request_id)
+            WHERE status = "delivered" AND repairment_id = ?', (date.today(), request_id)
         )
 
         db.commit()
+        return redirect(url_for('customer.get_requests'))
 
 
     elif status == "newItemShippedToCustomer":
@@ -270,16 +265,16 @@ def recievedTheProduct():
             WHERE id = ?', (request_id,)
         )
 
-        db.commit()
+        db.commit() 
 
         db.execute(
-            'UPDATE shipping SET recieve_date = ? ,status = "delivered"\
-            WHERE status = "onWay" AND repairment_id = ?', (date.today(), request_id)
+            'UPDATE shipping SET receive_date = ? ,status = "delivered"\
+            WHERE status = "delivered" AND repairment_id = ?', (date.today(), request_id)
         )
 
         db.commit()
 
-
+        return redirect(url_for('customer.get_requests'))
     else:
         return "Current status of the request is not applicable for this action!"
 
@@ -344,12 +339,77 @@ def insert_message():
 
 @bp.route('/decision_renew', methods = ['GET','POST'])
 def decision_renew():
-    None
+    # change the old product status to return
+    # create a new product with same attributes for user
+    # create a shippment for this new product
+    # change status of the request
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.args["id"]
+
+    req =  db.execute(
+        'SELECT * FROM repairment WHERE id = ?', (request_id,)
+    ).fetchone()
+
+    product_id = req["product_id"]
+    customer_id = req["customer_id"]
+    req_status = req["status"]
+    technician_id = req["technician_id"]
+
+    # get the information about old product
+    old_product = db.execute(
+        'SELECT * FROM product WHERE id = ?', (product_id,)
+    ).fetchone()
+
+
+    # add new product with the same old product attirbutes
+    db.execute(
+        'INSERT INTO product (customer_id, model, color, \
+        years_of_warranty,time_of_buying,price,cat_id,status) VALUES (?, ?, ?, ?, ?, ?, ?,"exists")',\
+        (old_product['customer_id'], old_product['model'], old_product['color'],\
+        old_product['years_of_warranty'], date.today(), old_product['price'], old_product['cat_id'])
+    )
+
+    db.commit()
+
+    # change the status of the old product to return
+    db.execute(
+            'UPDATE product SET status = "return"\
+            WHERE id = ?', (product_id,)
+    )
+
+    db.commit()
+
+    # change the status of the request to "newItemShippedToCustomer"
+    db.execute(
+            'UPDATE repairment SET status = "newItemShippedToCustomer"\
+            WHERE id = ?', (request_id,)
+    )
+
+    db.commit()
+
+    # create new shipment to from technician to customer
+    db.execute(
+            'INSERT INTO shipping (delivery_date, repairment_id, customer_id, \
+                technician_id, status) VALUES (?, ?, ?, ?, ?)',
+            (date.today(), request_id, customer_id, technician_id, "onWay")
+        )
+
+    db.commit()
+    
+    return redirect(url_for('customer.get_requests'))
 
 @bp.route('/decision_return', methods = ['GET','POST'])
 def decision_return():
-    None
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.args["id"]
+    return request_id
 
 @bp.route('decision_repair', methods = ['GET','POST'])
 def decision_repair():
-    None
+    db = get_db()
+    user_id = g.user['id']
+    request_id = request.args["id"]
+    return request_id
+

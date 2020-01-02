@@ -33,12 +33,12 @@
     <div class="row">
       <div class="col-sm-4">
         <p class="bottom-up-three">
-        Product ID: {{ id  }}<br>
-        Price: {{ price  }}<br>
-        Model: {{ model  }}<br>
-        Color: {{ Color  }}<br>
-        Years of Warranty: {{  years_of_warranty }}<br>
-        Category ID: {{  category_id}}<br>
+        Product ID: {{ data.product_id  }}<br>
+        Price: {{ data.price  }}<br>
+        Model: {{ data.model  }}<br>
+        Color: {{ data.color  }}<br>
+        Years of Warranty: {{  data.warranty }}<br>
+        Category ID: {{  data.category_id}}<br>
         </p>
       </div>
       <div class="vl"></div>
@@ -52,10 +52,9 @@
           </thead>
           <tbody>
             <tr>
-                   {% for row in data %}
+                   {% for row in range(data.len) %}
                             <td value={{row}}>{{  row  }}</td>
                     {% endfor %}
-              <td>Screen</td>
               <td><select class="form-control">
                 <option>Changed</option>
                 <option>Not Changed</option>
@@ -67,10 +66,5 @@
         </table>
         <button type="button" class="btn btn-secondary" style="margin-left:110px;">Submit</button>
       </div>
-
-
     </div>
-    <body>
-
-    </body>
     </html>

@@ -27,27 +27,21 @@
 
 <form class="top" >
   <p class="bottom-up-three">
-    Product ID: {{ id  }}<br>
-    Price: {{ price  }}<br>
-    Model: {{ model  }}<br>
-    Color: {{ Color  }}<br>
-    Years of Warranty: {{  years_of_warranty }}<br>
-    Category ID: {{  category_id  }}<br>
+    Product ID: {{ data.product_id  }}<br>
+    Price: {{ data.price  }}<br>
+    Model: {{ data.model  }}<br>
+    Color: {{ data.color  }}<br>
+    Years of Warranty: {{  data.years_of_warranty }}<br>
+    Category ID: {{  data.category_id  }}<br>
   </p>
 </form>
 
-<form class="textboxsimge" >
-  <textarea name="myTextBox" cols="30" rows="5">
-    Write preliminary report here.
+<form class="textboxsimge" action = "/technician/submit_preliminary">
+  <textarea name="preliminary_text" cols="30" rows="5">Write preliminary report here.
   </textarea>
-</form>
-
-
-<form action="/submit_preliminary">
-
   <br><br>
-  <button type="submit" href="/">Submit Preliminary</button>
-
+  <button type="submit" name="repairment_id" value="{{data.repairment_id}}">Submit Preliminary</button>
 </form>
+
 </body>
 </html>
