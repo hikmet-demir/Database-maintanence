@@ -49,6 +49,7 @@
   <div class="row">
     <div class="col-sm-4">
       <form class="form-group">
+          <h5>ID - Product Model - Status</h5>
           <select multiple class="form-control" name="comp_id" id="exampleFormControlSelect2" height="80%;">
             {% for index in range(size) %}
                     <option value={{ data.id[index] }}>{{  data.id[index]  }} - {{  data.model[index]  }} - {{  data.current_status[index]  }}</option>
