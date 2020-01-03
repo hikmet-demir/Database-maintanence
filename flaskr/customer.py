@@ -138,9 +138,18 @@ def get_requests():
     ).fetchall()
     id = [i[0] for i in requests]
     status = [i[5] for i in requests]
+    product_ids = [i[2] for i in requests]
+    product_names = []
+    for i in product_ids:
+        product =  db.execute(
+        'SELECT * FROM product WHERE id = ?', (i,)
+        ).fetchone()
+        product_name = product["model"]
+        product_names.append(product_name)
     data = {
         "id": id,
-        "status": status
+        "status": status,
+        "product_name": product_names
     }
     return render_template('customer/customer_view_requests.html', data = data, size = len(status) )
 

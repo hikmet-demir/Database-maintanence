@@ -27,7 +27,7 @@ def welcome():
 
     return render_template('technician/technician_welcome.html',data=data, size = len(id))
 
-@bp.route('/get_details')
+@bp.route('/technician_get_details')
 @login_required
 def get_details():
     db = get_db()
@@ -37,6 +37,11 @@ def get_details():
         'SELECT * FROM repairment WHERE id = ?', (repairment_id,)
     ).fetchone()
     product_id = repairment["product_id"]
+    customer_id = repairment["customer_id"]
+    customer =  db.execute(
+        'SELECT * FROM user WHERE id = ? ', (customer_id,)
+    ).fetchone()
+    customer_name = customer["first_name"]
     product =  db.execute(
         'SELECT * FROM product WHERE id = ? ', (product_id,)
     ).fetchone()
@@ -45,16 +50,21 @@ def get_details():
     product_model = product["model"]
     warranty = product["years_of_warranty"]
     cat_id = product["cat_id"]
+    repairment_status = repairment["status"]
+    repairment_problem = repairment["problem"]
     
     data = {
-        "product_id": product_id,
-        "price":product_price,
+        "name": customer_name,
         "model": product_model,
+        "status": repairment_status,
+        "problem": repairment_problem,
+        "price":product_price,
+        "product_id": product_id,
         "color": product_color,
         "warranty": warranty,
         "cat_id": cat_id
     }
-    return render_template('technician/get_details.html', data=data)
+    return render_template('technician/technician_get_details.html', data=data)
 
 @bp.route('/write_preliminary_report',methods =('GET','POST'))
 @login_required

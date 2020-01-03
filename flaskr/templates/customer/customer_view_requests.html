@@ -36,7 +36,7 @@
             <form class="form-group">
                 <select multiple class="form-control" name="requests" size ={{ size }} id="exampleFormControlSelect2" height="80%;">
                   {% for index in range(size) %}
-                          <option value={{ data.id[index] }}>{{ data.id[index],data.status[index]  }}</option>
+                          <option value={{ data.id[index] }}>{{ data.id[index],data.product_name[index],data.status[index]  }}</option>
                   {% endfor %}
                 </select>
             <button class = "button" type="submit" formaction="/customer/get_request_details">Get Details</button>
