@@ -29,7 +29,7 @@
 
     <p class="bottom-up-three">
       {% for index in range(size) %}
-              Message from {{data.send_id[index]}} to {{data.rec_id[index]}}: {{data.text[index]}}<br>
+              {{data.send_name[index]}}: {{data.text[index]}}<br>
       {% endfor %}
     </p>
     <hr>

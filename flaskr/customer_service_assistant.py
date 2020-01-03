@@ -101,6 +101,15 @@ def customer_service_assistant_chat_page(complaint_MADAFAKA = None):
     comp_id = [i[3] for i in requests]
     rec_id = [i[4] for i in requests]
     send_id = [i[5] for i in requests]
+    rec_name = []
+    send_name = []
+    for i in rec_id:
+        if i == user_id:
+            rec_name.append("Me")
+            send_name.append("Customer Service Assistant")
+        else:
+            rec_name.append("Customer Service Assistant")
+            send_name.append("Me")
 
     data = {
         "id": idd,
@@ -108,7 +117,9 @@ def customer_service_assistant_chat_page(complaint_MADAFAKA = None):
         "text": text,
         "comp_id": comp_id,
         "rec_id": rec_id,
-        "send_id": send_id
+        "send_id": send_id,
+        "rec_name": rec_name,
+        "send_name": send_name
     }
     #return data
     return render_template('customer_service_assistant/customer_service_assistant_chat_page.html', data = data, size = len(idd), complaint_id = complaint_id )
@@ -167,8 +178,9 @@ def customer_service_manage():
     db = get_db()
 
     db.execute(
-        'UPDATE complaint SET customer_service_asisstant_id = ?, current_status = "ongoing" WHERE id = ? and customer_service_asisstant_id IS NULL', (user_id,comp_id)
+        'UPDATE complaint SET customer_service_asisstant_id = ?, current_status = "ongoing" WHERE id = ?', (user_id,comp_id)
     )
+
     db.commit()
 
     return welcome(0)
